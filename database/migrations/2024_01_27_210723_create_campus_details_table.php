@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('notice', function (Blueprint $table) {
-            $table->unsignedBigInteger('notice_id')->primary();
-            $table->text('notice_text');
-            $table->string('notice_file');
-            $table->string('is_academic');
-            $table->rememberToken();
+        Schema::create('campus_details', function (Blueprint $table) {
+            $table->id();
+            $table->string('cam_img');
+            $table->string('cam_title');
+            $table->text('cam_text');
+            $table->string('cam_map');
             $table->timestamps();
         });
     }
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('notice');
+        Schema::dropIfExists('campus_details');
     }
 };

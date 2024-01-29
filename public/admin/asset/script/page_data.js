@@ -3,11 +3,32 @@ function pageInnerData(res) {
         case 'home':
             location.href = '/adminHome';
             break;
-    
+        //about submanus
         case 'shmuact':
-            location.href = '/aboutAct';
+            location.href = '/shmu/Act';
             break;
         
+        case 'inscode':
+            location.href = '/institute/code';
+            break;
+
+        case 'campusdetails':
+            location.href = '/campusdetails';
+            break;
+        
+        case 'mission':
+            location.href = '/mission/vision';
+            break;
+            
+        case 'news&event':
+            location.href = '/events';
+            break;
+
+        //administration submenus
+        case 'chancellor':
+            location.href = '/admin/chancellor';
+            break;
+            
         case 'notice':
             location.href = '/notice';
             break;
@@ -36,18 +57,21 @@ function editSection(res) {
     let editDis = res.querySelector("#editDisable");
     let editDiv = res.parentElement.parentElement;
     let sectionbody = editDiv.nextElementSibling;
+    console.log(sectionbody);
     let submit = sectionbody.querySelector(".sectionSubmit");
     let inpItem = sectionbody.querySelectorAll('.inpbox');
     let inpBox = sectionbody.querySelectorAll('.input-item');
-    inpItem.forEach((res)=> {
+    inpItem.forEach((res) => {
         let styleitem = res.style;
         styleitem.display = (styleitem.display == "block") ? "none" : "block";
     })
-    inpBox.forEach((res)=> {
+    inpBox.forEach((res) => {
         let attrCheck = res.hasAttribute('disabled');
-        (!attrCheck)? res.setAttribute('disabled') : res.removeAttribute('disabled');
+
+        (!attrCheck) ? (res.setAttribute('disabled', 'true'), res.setAttribute('enabled', 'true')) : (res.setAttribute('enabled', 'true'), res.removeAttribute('disabled'));
+
     })
     submit.style.display = (submit.style.display == "block") ? "none" : "block";
-    editEna.style.display = (editEna.style.display == "none")? "block" : "none";
-    editDis.style.display = (editDis.style.display == "block")? "none" : "block";
+    editEna.style.display = (editEna.style.display == "none") ? "block" : "none";
+    editDis.style.display = (editDis.style.display == "block") ? "none" : "block";
 }

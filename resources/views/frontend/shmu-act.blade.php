@@ -54,14 +54,22 @@
         <!--===================
         main content start here 
         ==================-->
-
+        
+        @php
+            use App\Models\ActDocs;
+            use App\Models\ActText;
+            use Carbon\Carbon;
+            $data = ActText::first();
+            $acts = ActDocs::latest()->get();
+        @endphp
+        
         <!-- shmu act design here -->
         <div class="main-act pt-5">
             <div class="shmu-act container">
                 <div class="shmu-act-main">
                     <div class="shmu-act-heading">
                         <h4>
-                            SHMU ACT - 2021
+                            {{$data->act_heading}}
                         </h4>
                         <p>
                             ( Ordinance NO. I OF 1972 )
@@ -70,28 +78,28 @@
                     <div class="shmu-act-body">
                         <div class="act-body-details">
                             <h6>
-                                শেখ হাসিনা মেডিকেল বিশ্ববিদ্যালয় আইন: এক নজরে সংক্ষেপ
+                                {{$data->act_title}}
                             </h6>
-                            <p>
-                                বাংলাদেশের মেডিকেল ইউনিভার্সিটি আইনের সংক্ষেপ: আইনটি মেডিকেল ইউনিভার্সিটির স্থাপনা, প্রয়োজন এবং উদ্দেশ্য নির্ধারণ করে। ইউনিভার্সিটির গভর্ণ্যাংশ এবং প্রশাসনিক পদের পরিচয়, অধ্যাপক এবং অন্যান্য পদসমূহের নিয়োজন নির্ধারণ করা হয়েছে। একাডেমিক কার্যক্রম ও ভর্তির পদক্ষেপ, ছাত্র-ছাত্রীদের অধিকার ও দায়িত্ব, গবেষণা এবং উদ্ভাবন, এই সব দিক সহ আইনটি মেডিকেল ইউনিভার্সিটির কার্যক্ষমতা ও গুণমান সংরক্ষণের জন্য বিশেষ নির্দেশনা দেয়। এছাড়া, আর্থিক বিষয়ে আইনটি বাজেট এবং অর্থ ব্যবস্থাপনা নির্ধারণ করে, যাতে ইউনিভার্সিটি সাস্থ্যকর অভিজ্ঞান শিক্ষা প্রদান করতে হতে পারে।
-                            </p>
+                            {!!$data->act_text!!}
                         </div>
                         <ul class="all-act-list d-block list-group list-group-horizontal-xxl">
                             <h6 class="m-0">
                                 বিস্তারিত: 
                             </h6>
+                            @foreach ($acts as $act)
+                                @php
+                                    
+                                    $formattedCreatedAt = Carbon::parse($act->created_at)->format('Y-M-d');
+
+                                    [$year, $month, $day] = explode('-', $formattedCreatedAt);
+                                @endphp
                             <li class="list-group-item">
-                                <a target="_blank" href="https://shmu.ac.bd/wp-content/uploads/2022/07/%E0%A6%B6%E0%A7%87%E0%A6%96-%E0%A6%B9%E0%A6%BE%E0%A6%B8%E0%A6%BF%E0%A6%A8%E0%A6%BE-%E0%A6%AE%E0%A7%87%E0%A6%A1%E0%A6%BF%E0%A6%95%E0%A7%87%E0%A6%B2-%E0%A6%AC%E0%A6%BF%E0%A6%B6%E0%A7%8D%E0%A6%AC%E0%A6%AC%E0%A6%BF%E0%A6%A6%E0%A7%8D%E0%A6%AF%E0%A6%BE%E0%A6%B2%E0%A7%9F-%E0%A6%86%E0%A6%87%E0%A6%A8-.pdf">
-                                    <span class="d-block">Dec 26, 2023</span>
-                                    <span class="display-6">শেখ হাসিনা মেডিকেল বিশ্ববিদ্যালয় আইন- ২০২১</span>
+                                <a target="_blank" download href="storage/shmuAct/{{$act->actDoc_file}}">
+                                    <span class="d-block">{{$month.' '. $day. ','. $year}}</span>
+                                    <span class="display-6">{{$act->actDoc_heading}}</span>
                                 </a>
                             </li>
-                            <li class="list-group-item">
-                                <a target="_blank" href="https://shmu.ac.bd/wp-content/uploads/2022/07/%E0%A6%B6%E0%A7%87%E0%A6%96-%E0%A6%B9%E0%A6%BE%E0%A6%B8%E0%A6%BF%E0%A6%A8%E0%A6%BE-%E0%A6%AE%E0%A7%87%E0%A6%A1%E0%A6%BF%E0%A6%95%E0%A7%87%E0%A6%B2-%E0%A6%AC%E0%A6%BF%E0%A6%B6%E0%A7%8D%E0%A6%AC%E0%A6%AC%E0%A6%BF%E0%A6%A6%E0%A7%8D%E0%A6%AF%E0%A6%BE%E0%A6%B2%E0%A7%9F-%E0%A6%86%E0%A6%87%E0%A6%A8-.pdf">
-                                    <span class="d-block">Dec 26, 2016</span>
-                                    <span class="display-6">শেখ হাসিনা মেডিকেল বিশ্ববিদ্যালয় আইন- ২০১৬</span>
-                                </a>
-                            </li>
+                            @endforeach
                         </ul>
                     </div>
                 </div>

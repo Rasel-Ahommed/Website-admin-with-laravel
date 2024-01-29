@@ -2,58 +2,78 @@
 
 <section class="page-content">
     <div class="page-head">
-        <h1>Page / Notice</h1>
+        <h1>Page / News & Events</h1>
     </div>
     {{-- notic input form  --}}
     <div class="section shadow">
         <div class="section-head">
-            <h1>Add New Notice</h1>
+            <h1>Add New News & Events</h1>
         </div>
 
 
         <div class="section-body pt30">
-            <form action="{{ route('store.notice') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('store.news&event') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="text-section">
                     <div class="text-content">
-                        {{-- select option  --}}
-                        <div class="text-title">
-                            <label for="title">Select an option :</label>
-                            <select id="selectExample" name="selectOption">
-
-                                <option value="" selected disabled
-                                    {{ old('selectOption') == '' ? 'selected' : '' }}>Select an option</option>
-
-                                <option value="Academic" {{ old('selectOption') == '1' ? 'selected' : '' }}>Academic
-                                </option>
-
-                                <option value="Administrative" {{ old('selectOption') == '0' ? 'selected' : '' }}>
-                                    Administrative
-                                </option>
-                                <!-- Add more options as needed -->
-                            </select>
-                            @error('selectOption')
-                                <div class="alert alert-danger">{{ $message }}</div>
-                            @enderror
+                        {{-- select date  --}}
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Event Date</label>
+                            <input type="date" name='event_date' class="form-control" id="exampleInputPassword1"
+                                value="{{ old('event_date') }}">
                         </div>
+                        @error('event_date')
+                            <div class=" text-danger">{{ $message }}</div>
+                        @enderror
 
-                        {{-- upload file --}}
-                        <div class="" id="hero1">
-                            <label for="">Upload Notice:</label>
-                            <input type="file" name="notice_file" />
-                            @error('notice_file')
-                                <div class="alert alert-danger">{{ $message }}</div>
-                            @enderror
+                        {{-- select start time  --}}
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Start Time</label>
+                            <input type="time" name="start_time" class="form-control" id="exampleInputPassword1"
+                                value="{{ old('start_time') }}">
                         </div>
+                        @error('start_time')
+                            <div class="text-danger">{{ $message }}</div>
+                        @enderror
+
+                        {{-- select end time  --}}
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">End Time</label>
+                            <input type="time" name="end_time" class="form-control" id="exampleInputPassword1"
+                                value="{{ old('end_time') }}">
+                        </div>
+                        @error('end_time')
+                            <div class="text-danger">{{ $message }}</div>
+                        @enderror
+
+                        {{-- select location  --}}
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Event Location</label>
+                            <input type="text" name="event_location" class="form-control" id="exampleInputPassword1"
+                                placeholder="Enter Event Location" value="{{ old('event_location') }}">
+                        </div>
+                        @error('event_location')
+                            <div class="text-danger">{{ $message }}</div>
+                        @enderror
+
+                        {{-- title  --}}
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Event Title</label>
+                            <input type="text" name="event_title" class="form-control" id="exampleInputPassword1"
+                                placeholder="Enter Event Title" value="{{ old('event_title') }}">
+                        </div>
+                        @error('event_title')
+                            <div class="text-danger">{{ $message }}</div>
+                        @enderror
 
                         {{-- write text  --}}
                         <div class="text-para">
                             <label for="paragraph">
-                                Notice text
-                                <textarea class="input-item" name="notice_text" id="paragraph" placeholder="Enter Paragraph">{{ old('notice_text') }}</textarea>
+                                Event Description
+                                <textarea class="input-item" name="event_text" id="paragraph" placeholder="Enter Paragraph">{{ old('event_text') }}</textarea>
                             </label>
-                            @error('notice_text')
-                                <div class="alert alert-danger">{{ $message }}</div>
+                            @error('event_text')
+                                <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
                     </div>
@@ -68,53 +88,60 @@
 
 {{-- see all notice  --}}
 @php
-    use App\Models\Notice;
+    use App\Models\NewsAndEvents;
     use Carbon\Carbon;
-    $notices = Notice::latest()->paginate(10);
+    $events = NewsAndEvents::latest()->paginate(10);
 @endphp
-{{-- show massage  --}}
 
-<div class="container p-5">
+<div class="container p-4">
     <div class="row">
-        @if (session('update'))
-            <div class="alert alert-success" role="alert">
-                {{ session('update') }}
-            </div>
-        @endif
-        <table class="table table-striped">
-            <thead>
-                <tr class="table-primary ">
-                    <th scope="col">#</th>
-                    <th scope="col">Notice-Text</th>
-                    <th scope="col">Options</th>
-                    <th scope="col">Files</th>
-                    <th scope="col">Created At</th>
-                    <th scope="col">Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($notices as $key => $notice)
-                    @php
-                        $formattedCreatedAt = Carbon::parse($notice->created_at)->format('Y-M-d');
-                    @endphp
-                    <tr>
-                        <th scope="row">{{ ($notices->currentPage() - 1) * $notices->perPage() + $key + 1 }}</th>
-                        <td>{!! $notice->notice_text !!}</td>
-                        <td>{{ $notice->notice_file }}</td>
-                        <td>{{ $notice->is_academic }}</td>
-                        <td>{{ $formattedCreatedAt }}</td>
-                        <td>
-                            <a href="{{ route('editNotice', ['id' => encrypt($notice->notice_id)]) }}">
-                                <button class="btn btn-primary mb-2"><i class="bi bi-pencil-square"></i></button>
-                            </a>
-                            <a onclick="return confirm('Are you sure to delete this notice')" href="{{ route('delete', ['id' => encrypt($notice->notice_id)]) }}">
-                                <button class="btn btn-danger"><i class="bi bi-trash-fill"></i></button>
-                            </a>
-                        </td>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr class="table-primary ">
+                        <th scope="col">#</th>
+                        <th scope="col">Event Title</th>
+                        <th scope="col">Start Text</th>
+                        <th scope="col">Event Location</th>
+                        <th scope="col">Event Date</th>
+                        <th scope="col">Start Time</th>
+                        <th scope="col">End Time</th>
+                        <th scope="col">Add Image</th>
+                        <th scope="col">Action</th>
                     </tr>
-                @endforeach
-        </table>
-        {{ $notices->links() }}
+                </thead>
+                <tbody>
+                    @foreach ($events as $key => $event)
+                        @php
+                            // Convert s_time and e_time to 12-hour format with AM/PM
+                            $startTime = Carbon::parse($event->s_time)->format('h:i A');
+                            $endTime = Carbon::parse($event->e_time)->format('h:i A');
+
+                        @endphp
+                        <tr>
+                            <th scope="row">{{ ($events->currentPage() - 1) * $events->perPage() + $key + 1 }}</th>
+                            <td>{{ $event->event_title }}</td>
+                            <td>{{ $event->event_text }}</td>
+                            <td>{{ $event->location }}</td>
+                            <td>{{ $event->date }}</td>
+                            <td>{{ $startTime }}</td>
+                            <td>{{ $endTime }}</td>
+
+                            <td class="text-center"><a href="{{route('event.img',['id'=> encrypt($event->id)])}}" >Image<i class="bi bi-cloud-arrow-up"></i></a></td>
+                            
+                            <td>
+                                <a href="{{ route('editEvent', ['id' => encrypt($event->id)]) }}">
+                                    <button class="btn btn-primary mb-2"><i class="bi bi-pencil-square"></i></button>
+                                </a>
+                                <a onclick="return confirm('Are you sure to delete this notice')" href="{{ route('delete.event', ['id' => encrypt($event->id)]) }}">
+                                    <button class="btn btn-danger"><i class="bi bi-trash-fill"></i></button>
+                                </a>
+                            </td>
+                        </tr>
+                    @endforeach
+            </table>
+        </div>
+        {{ $events->links() }}
     </div>
 </div>
 

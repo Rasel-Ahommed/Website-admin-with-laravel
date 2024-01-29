@@ -17,34 +17,27 @@
                 <div class="text-section">
                     <div class="text-content">
                         {{-- select option  --}}
-                        <div class="text-title">
-                            <label for="title">Select an option :</label>
-                            <select id="selectExample" name="selectOption">
+                        <label for="formFile" class="form-label">Select Notice Type</label>
+                        <select class="form-select" name="selectOption" aria-label="Default select example">
+                            <option selected disabled>Select an option</option>
+                            <option value="Academic" {{ old('selectOption') == '1' ? 'selected' : '' }}>Academic
+                            </option>
+                            <option value="Administrative" {{ old('selectOption') == '0' ? 'selected' : '' }}>
+                                Administrative</option>
+                        </select>
+                        @error('selectOption')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
 
-                                <option value="" selected disabled
-                                    {{ old('selectOption') == '' ? 'selected' : '' }}>Select an option</option>
-
-                                <option value="Academic" {{ old('selectOption') == '1' ? 'selected' : '' }}>Academic
-                                </option>
-
-                                <option value="Administrative" {{ old('selectOption') == '0' ? 'selected' : '' }}>
-                                    Administrative
-                                </option>
-                                <!-- Add more options as needed -->
-                            </select>
-                            @error('selectOption')
-                                <div class="alert alert-danger">{{ $message }}</div>
-                            @enderror
-                        </div>
 
                         {{-- upload file --}}
-                        <div class="" id="hero1">
-                            <label for="">Upload Notice:</label>
-                            <input type="file" name="notice_file" />
-                            @error('notice_file')
-                                <div class="alert alert-danger">{{ $message }}</div>
-                            @enderror
+                        <div class="mb-3">
+                            <label for="formFile" class="form-label">Upload Notice:</label>
+                            <input class="form-control" name="notice_file" type="file" id="formFile">
                         </div>
+                        @error('notice_file')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
 
                         {{-- write text  --}}
                         <div class="text-para">
@@ -107,7 +100,8 @@
                             <a href="{{ route('editNotice', ['id' => encrypt($notice->notice_id)]) }}">
                                 <button class="btn btn-primary mb-2"><i class="bi bi-pencil-square"></i></button>
                             </a>
-                            <a onclick="return confirm('Are you sure to delete this notice')" href="{{ route('delete', ['id' => encrypt($notice->notice_id)]) }}">
+                            <a onclick="return confirm('Are you sure to delete this notice')"
+                                href="{{ route('delete', ['id' => encrypt($notice->notice_id)]) }}">
                                 <button class="btn btn-danger"><i class="bi bi-trash-fill"></i></button>
                             </a>
                         </td>

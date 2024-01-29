@@ -8,6 +8,13 @@ use App\Http\Controllers\adminController\reportController;
 use App\Http\Controllers\adminController\dashboardController;
 use App\Http\Controllers\adminController\activitiesController;
 use App\Http\Controllers\adminController\subscriberController;
+use App\Http\Controllers\adminController\aboutController\eventsController;
+use App\Http\Controllers\adminController\aboutController\shmuActController;
+use App\Http\Controllers\adminController\administration\chancellorController;
+use App\Http\Controllers\adminController\aboutController\campusDetailsController;
+use App\Http\Controllers\adminController\aboutController\instituteCodeController;
+use App\Http\Controllers\adminController\aboutController\missionAndVisionController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -130,31 +137,108 @@ Route::middleware('auth')->group(function () {
     Route::get('/adminHome', [homeController::class, 'Index']);
 
 
-// ----------------all submanus route from about--------------
-// events route 
-Route::get('/events', 'eventsController')->name('user');
+    //--------------------------------------------------------------//
+    // ---------------- about section routes start----------//
+    //--------------------------------------------------------------//
+
+    //--------shmu act route------//
+    Route::get('/shmu/Act', [shmuActController::class, 'Index']);
+
+    Route::put('/update/act/text/{id}', [shmuActController::class, 'UpdateActText'])->name('updateActText');
+
+    Route::post('/act/doc', [shmuActController::class, 'StoreAct'])->name('act.doc');
+
+    Route::get('/act/edit/{id}', [shmuActController::class, 'Edit'])->name('act.edit');
+
+    Route::put('/act/update/{id}', [shmuActController::class, 'Update'])->name('act.update');
+
+    Route::get('/act/delete/{id}', [shmuActController::class, 'Destroy'])->name('act.delete');
+    
+
+
+    // -------events route --------//
+    Route::get('/events', [eventsController::class, 'Index']);
+
+    Route::post('/events', [eventsController::class, 'Store'])->name('store.news&event');
+
+    Route::get('/edit/event/{id}', [eventsController::class, 'Edit'])->name('editEvent');
+
+    Route::put('/update/event/{id}', [eventsController::class, 'Update'])->name('update.event');
+
+    Route::get('/delete/event/{id}', [eventsController::class, 'Destroy'])->name('delete.event');
+
+
+
+    //------------event image controller --------//
+    Route::get('/event/img/{id}', [eventsController::class, 'EventImgIndex'])->name('event.img');
+
+    Route::post('/event/img/{id}', [eventsController::class, 'StoreEventImg'])->name('store.event.img');
+
+    Route::get('/event/img/delete/{id}', [eventsController::class, 'DeleteEventImg'])->name('delete.eventImg');
+
+
+
+    //--------institute_code route ---------//
+    Route::get('/institute/code', [instituteCodeController::class, 'Index']);
+
+    Route::post('/Institute/Code', [instituteCodeController::class, 'Store'])->name('store.instituteCode');
+
+    Route::get('/Institute/Edit/{id}', [instituteCodeController::class, 'Edit'])->name('edit.institute');
+
+    Route::put('/Institute/update/{id}', [instituteCodeController::class, 'Update'])->name('update.instituteCode');
+
+    Route::get('/Institute/delete/{id}', [instituteCodeController::class, 'Destroy'])->name('delete.institute');
+
+
+    //-----------campus_details route-------------//
+    Route::get('/campusdetails', [campusDetailsController::class, 'Index']);
+
+    Route::put('/Update/campus/details/{id}', [campusDetailsController::class, 'Update'])->name('update.campusDtls');
+
+    //-------------mission and vision -------------//
+    Route::get('/mission/vision', [missionAndVisionController::class, 'Index']);
+
+    Route::put('/Update/mission/{id}', [missionAndVisionController::class, 'UpdateMission'])->name('update.mission');
+
+    Route::put('/Update/vision/{id}', [missionAndVisionController::class, 'UpdateVision'])->name('update.vision');
+    
+
+    //--------------------------------------------------------------//
+    // ---------------- about section route end------------//
+    //--------------------------------------------------------------//
+
+
+    //--------------------------------------------------------------//
+    // ------------------- Administration section route start-------//
+    //--------------------------------------------------------------//
+
+    //------Chancellor route--------//
+    Route::get('/admin/chancellor', [chancellorController::class, 'Index']);
+    Route::post('/update/chancellor/{id}', [chancellorController::class, 'Update'])->name('chancellor/update');
+
+    //--------------------------------------------------------------//
+    // ------------------- Administration section route end-------//
+    //--------------------------------------------------------------//
 
 
 
 
 
 
-
-
-    //notice routes
+    //-----------notice routes-------------//
     Route::get('/notice', [noticController::class, 'Index']);
     Route::post('/notice', [noticController::class, 'Store'])->name('store.notice');
     Route::get('/edit/notice/{id}', [noticController::class, 'Edit'])->name('editNotice');
     Route::post('/edit/notice/{id}', [noticController::class, 'Update'])->name('update.notice');
     Route::get('/delete/notice/{id}', [noticController::class, 'Destroy'])->name('delete');
 
-    //activities routes
+    //-------------activities routes-------------//
     Route::get('/activities', [activitiesController::class, 'Index']);
 
-    //subscribe routes
+    //---------------subscribe routes-------------//
     Route::get('/subscriber', [subscriberController::class, 'Index']);
 
-    //report routes
+    //---------------report routes--------------//
     Route::get('/report', [reportController::class, 'Index']);
 });
 

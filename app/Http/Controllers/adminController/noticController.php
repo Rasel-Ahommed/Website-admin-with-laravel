@@ -68,7 +68,9 @@ class noticController extends Controller
     
         // Update the notice_file if a new file is provided
         if ($request->hasFile('notice_file')) {
+            
             $fileName = time() . 'notice.' . $request->file('notice_file')->getClientOriginalExtension();
+
             $request->file('notice_file')->storeAs('public/Notice', $fileName);
     
             // Delete the old file if it exists
@@ -112,10 +114,7 @@ class noticController extends Controller
 
             // Redirect back after successful deletion
             return redirect()->back()->with('delete', 'The notice has been successfully deleted');
-        } else {
-            // Handle the case where the notice record does not exist
-            return redirect()->back()->with('error', 'Notice not found.');
-        }
+        } 
     }
     
 }

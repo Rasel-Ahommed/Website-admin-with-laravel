@@ -27,19 +27,23 @@
             massage of chancellor starts
             ===========================-->
 
+            @php
+                use App\Models\Chancellor;
+                $data = Chancellor::first();
+            @endphp
             <div class="edu-team-details-area py-5">
                 <div class="container">
                     <div class="row row--40">
                         <div class="col-lg-4">
                             <div class="team-details-thumb">
                                 <div class="thumbnail">
-                                    <img src="assets/images/administration/President of Bangladesh.jpg" alt="Vice Chancellor" loading="lazy">
+                                    <img src="{{asset('storage/chancellorImg/'.$data->chan_img)}}" alt="Vice Chancellor" loading="lazy">
                                 </div>
                                 <ul class="social-share">
-                                    <li><a href="#"><i class="icon-share-alt"></i></a></li>
-                                    <li><a href="#"><i class="icon-facebook"></i></a></li>
-                                    <li><a href="#"><i class="icon-twitter"></i></a></li>
-                                    <li><a href="#"><i class="icon-linkedin2"></i></a></li>
+                                    <li><a href="{{$data->chan_web}}"><i class="icon-share-alt"></i></a></li>
+                                    <li><a href="{{$data->chan_fb}}"><i class="icon-facebook"></i></a></li>
+                                    <li><a href="{{$data->chan_tw}}"><i class="icon-twitter"></i></a></li>
+                                    <li><a href="{{$data->chan_link}}"><i class="icon-linkedin2"></i></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -47,14 +51,12 @@
                             <div class="team-details-content">
                                 <div class="main-info">
                                     <span class="subtitle">Chancellor</span>
-                                    <p>Mohammed Shahabuddin</p>
+                                    <p>{{$data->chan_name}}</p>
                                     <span class="designation">President of Bangladesh</span>
                                 </div>
                                 <div class="bio-describe">
                                     <h4 class="title">About Me</h4>
-                                    <p>
-                                        Greetings! I am Professor Dr. Md. Mahbubur Rahman, and it is my honor to serve as the Vice Chancellor of Sheikh Hasina Medical University. With a profound background in medicine, I hold the degrees of MBBS and FCPS (Haematology), embodying a commitment to excellence in the field of healthcare.
-                                    </p>
+                                    {!!$data->chan_about!!}
                                 </div>
                                 <!-- <div class="contact-info">
                                     <h4 class="title">Contact Me</h4>
@@ -68,18 +70,8 @@
                         </div>
                     </div>
                     <div class="massage-chancellor">
-                        <p>
-                            <h6>Welcome to: </h6>Our dear students, we warmly welcome you to complete your education successfully. As the Chancellor of this University, I am full of my passion and confidence in a thriving, essential weekly, and exemplary educational institution.
-                        </p>
-                        <p>
-                            <h6>University Core Values:</h6>Our university is committed to providing a scientific and modern education. We encourage new students to create a personal and professional title. We are committed to training everyone with respect and ethical values.
-                        </p>
-                        <p>
-                            <h6>Prosperity and Success:</h6>We want to be part of a thriving community, where knowledge, creativity, and service create a compact. We encourage everyone to acquire new continuous skills and fulfill their dreams. To all students, we hope that our university will help them develop consistent self-reliance and creative thinking.
-                        </p>
-                        <p>
-                            <h6>Advances in Quality:</h6>I once again extend a warm welcome to you and we look forward to working together to create a bright future. In this university you will find a worthwhile pursuit to gain new experiences and move in new directions. We believe in you, you will be able to overcome all modern challenges and obstacles.
-                        </p>
+                        <p></p>
+                        {!!$data->chan_welcome!!}
                     </div>
                 </div>
             </div>
