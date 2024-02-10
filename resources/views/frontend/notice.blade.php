@@ -97,13 +97,13 @@
                             $notices = DB::table('notice')
                                 ->where('is_academic', 'Academic')
                                 ->latest()
-                                ->paginate(2);
+                                ->get();
 
                             // Administrative data
                             $notices2 = DB::table('notice')
                                 ->where('is_academic', 'Administrative')
                                 ->latest()
-                                ->paginate(2);
+                                ->get();
                         @endphp
                         <div class="row academic">
                             @foreach ($notices as $notice)
@@ -139,7 +139,6 @@
                                     </div>
                                 </div>
                             @endforeach
-                            {{ $notices->links() }}
                         </div>
 
                         <div class="row administrative">
@@ -175,80 +174,14 @@
                                     </div>
                                 </div>
                             @endforeach
-                            {{ $notices2->links() }}
                         </div>
 
-                        {{-- <div class="row">
-                <div class="notice-type-btn py-md-5">
-                    <button
-                      type="button"
-                      class="btn btn-outline-notice fs-3"
-                      data-bs-toggle="button"
-                      aria-pressed="false"
-                      autocomplete="off"
-                    >
-                      Prev
-                    </button>
-                    <button
-                      type="button"
-                      class="btn btn-outline-notice fs-3"
-                      data-bs-toggle="button"
-                      aria-pressed="false"
-                      autocomplete="off"
-                    >
-                      Next
-                    </button>
-                  </div>
-              </div> --}}
+             
                     </div>
 
                 </div>
             </div>
         </div>
 
-        <!-- notice section end here -->
-        <!-- <div class="notice-board">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col">
-                                <div class="edu-course course-style-4 course-style-9">
-                                    <div class="inner">
-                                        <div class="content">
-                                            <div class="course-price">March 23, 2023</div>
-                                            <h6 class="title">
-                                                <a href="notice1.html">পবিত্র রমজান ( হিজরী- ১৪৪৪, ২০২৩ খ্রিস্টাব্দ)মাসব্যাপী অত্র বিশ্ববিদ্যালয়ের পরিবর্তিত সময়সূচীর নোটিশ |</a>
-                                            </h6>
-                                        </div>
-                                    </div>
-                                    <div class="hover-content-aside">
-                                        <div class="content">
-                                            <span class="course-level">March 23, 2023</span>
-                                            <h5 class="title">
-                                                <a href="notice1.html">পবিত্র রমজান ( হিজরী- ১৪৪৪, ২০২৩ খ্রিস্টাব্দ)মাসব্যাপী অত্র বিশ্ববিদ্যালয়ের পরিবর্তিত সময়সূচীর নোটিশ |</a>
-                                            </h5>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="edu-course course-style-4 course-style-9">
-                                    <div class="inner">
-                                        <div class="content">
-                                            <div class="course-price">March 23, 2023</div>
-                                            <h6 class="title">
-                                                <a href="notice2.html">জাতির পিতা বঙ্গবন্ধু শেখ মুজিবুর রহমান এঁর জন্মবার্ষিকী ও জাতীয় শিশু দিবসের কর্মসূচি |</a>
-                                            </h6>
-                                        </div>
-                                    </div>
-                                    <div class="hover-content-aside">
-                                        <div class="content">
-                                            <span class="course-level">March 23, 2023</span>
-                                            <h5 class="title">
-                                                <a href="notice2.html">জাতির পিতা বঙ্গবন্ধু শেখ মুজিবুর রহমান এঁর জন্মবার্ষিকী ও জাতীয় শিশু দিবসের কর্মসূচি |</a>
-                                            </h5>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
+      
     @endsection

@@ -26,19 +26,29 @@
         <!--=====================================-->
         <!--=        Team Area Start            =-->
         <!--=====================================-->
+
+@php
+    use App\Models\viceChancellor;
+
+    $data = viceChancellor::first();
+        if(!$data){
+            return abort(404);
+        }
+@endphp
+
         <div class="edu-team-details-area py-5">
             <div class="container">
                 <div class="row row--40">
                     <div class="col-lg-4">
                         <div class="team-details-thumb">
                             <div class="thumbnail">
-                                <img src="assets/images/administration/IMG-20220510-WA0048.jpg" alt="Vice Chancellor">
+                                <img src="{{asset('storage/chancellorImg/'.$data->img)}}" alt="Vice Chancellor">
                             </div>
                             <ul class="social-share">
-                                <li><a href="#"><i class="icon-share-alt"></i></a></li>
-                                <li><a href="#"><i class="icon-facebook"></i></a></li>
-                                <li><a href="#"><i class="icon-twitter"></i></a></li>
-                                <li><a href="#"><i class="icon-linkedin2"></i></a></li>
+                                <li><a href="{{$data->webLink}}"><i class="icon-share-alt"></i></a></li>
+                                <li><a href="{{$data->facebook}}"><i class="icon-facebook"></i></a></li>
+                                <li><a href="{{$data->Twitter}}"><i class="icon-twitter"></i></a></li>
+                                <li><a href="{{$data->linkedIn}}"><i class="icon-linkedin2"></i></a></li>
                             </ul>
                         </div>
                     </div>
@@ -46,21 +56,19 @@
                         <div class="team-details-content">
                             <div class="main-info">
                                 <span class="subtitle">Vice Chancellor</span>
-                                <p>Professor Dr. Md. Mahbubur Rahman</p>
-                                <span class="designation">MBBS, FCPS (Haematology)</span>
+                                <p>{{$data->name}}</p>
+                                <span class="designation">{{$data->degree}}</span>
                             </div>
                             <div class="bio-describe">
                                 <h4 class="title">About Me</h4>
-                                <p>
-                                    Greetings! I am Professor Dr. Md. Mahbubur Rahman, and it is my honor to serve as the Vice Chancellor of Sheikh Hasina Medical University. With a profound background in medicine, I hold the degrees of MBBS and FCPS (Haematology), embodying a commitment to excellence in the field of healthcare.
-                                </p>
+                               {!!$data->about!!}
                             </div>
                             <div class="contact-info">
                                 <h4 class="title">Contact Me</h4>
                                 <ul>
-                                    <li><span>Address:</span>Sheikh Hasina Medical University, Khulna</li>
-                                    <li><span>Email:</span><a href="mailto:shmu@example.com" target="_blank">shmu@example.com</a></li>
-                                    <li><span>Phone:</span><a href="tel:+37(417)683-4409">+37 (417) 683-4409</a></li>
+                                    <li><span>Address:</span>{{$data->address}}</li>
+                                    <li><span>Email:</span><a href="mailto:{{$data->email}}" target="_blank">{{$data->email}}</a></li>
+                                    <li><span>Phone:</span><a href="tel:{{$data->phone}}">{{$data->phone}}</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -78,98 +86,38 @@
                     <h2 class="title">VC's Office Member</h2>
                     <span class="shape-line"><i class="icon-19"></i></span>
                 </div>
+      
                 <div class="row g-5">
+                    @php
+                    use App\Models\vcOfficeMember;
+                    $datas = vcOfficeMember::all();
+                @endphp
+                @foreach ($datas as $data)
+                
                     <div class="col-lg-4 col-md-6" data-sal-delay="150" data-sal="slide-up" data-sal-duration="800">
                         <div class="edu-team-grid team-style-2">
                             <div class="inner">
                                 <div class="thumbnail-wrap">
                                     <div class="thumbnail">
                                         <a href="#">
-                                            <img src="assets/images/administration/vice_chancellor_office/Md.-Nurul-Momen.jpg" alt="team images">
+                                            <img src="{{asset('storage/vc-office-member/'.$data->img)}}" alt="team images">
                                         </a>
                                     </div>
                                     <ul class="team-share-info">
-                                        <li><a href="#"><i class="icon-facebook"></i></a></li>
-                                        <li><a href="#"><i class="icon-twitter"></i></a></li>
-                                        <li><a href="#"><i class="icon-linkedin2"></i></a></li>
+                                        <li><a href="{{$data->facebook}}"><i class="icon-facebook"></i></a></li>
+                                        <li><a href="{{$data->twitter}}"><i class="icon-twitter"></i></a></li>
+                                        <li><a href="{{$data->linkedin}}"><i class="icon-linkedin2"></i></a></li>
                                     </ul>
                                 </div>
                                 <div class="content">
-                                    <h5 class="title"><a href="team-details.html">Md. Nurul Momen</a></h5>
-                                    <span class="designation">PS of VC (Assistant Registrar)</span>
+                                    <h5 class="title"><a href="team-details.html">{{$data->name}}</a></h5>
+                                    <span class="designation">{{$data->post}}</span>
                                     <p>Office of the Vice-Chancellor</p>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-6" data-sal-delay="200" data-sal="slide-up" data-sal-duration="800">
-                        <div class="edu-team-grid team-style-2">
-                            <div class="inner">
-                                <div class="thumbnail-wrap">
-                                    <div class="thumbnail">
-                                        <a href="team-details.html">
-                                            <img src="assets/images/administration/vice_chancellor_office/Md.-Khirul-Alom.jpg" alt="team images">
-                                        </a>
-                                    </div>
-                                    <ul class="team-share-info">
-                                        <li><a href="#"><i class="icon-facebook"></i></a></li>
-                                        <li><a href="#"><i class="icon-twitter"></i></a></li>
-                                        <li><a href="#"><i class="icon-linkedin2"></i></a></li>
-                                    </ul>
-                                </div>
-                                <div class="content">
-                                    <h5 class="title"><a href="team-details.html">Md Khirul Alom</a></h5>
-                                    <span class="designation">Office Assistant</span>
-                                    <p>Office of the Vice-Chancellor</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6" data-sal-delay="150" data-sal="slide-up" data-sal-duration="800">
-                        <div class="edu-team-grid team-style-2">
-                            <div class="inner">
-                                <div class="thumbnail-wrap">
-                                    <div class="thumbnail">
-                                        <a href="team-details.html">
-                                            <img src="assets/images/administration/vice_chancellor_office/Md.-Nurul-Islam-Sheikh.jpg" alt="team images">
-                                        </a>
-                                    </div>
-                                    <ul class="team-share-info">
-                                        <li><a href="#"><i class="icon-facebook"></i></a></li>
-                                        <li><a href="#"><i class="icon-twitter"></i></a></li>
-                                        <li><a href="#"><i class="icon-linkedin2"></i></a></li>
-                                    </ul>
-                                </div>
-                                <div class="content">
-                                    <h5 class="title"><a href="team-details.html">Md. Nurul Islam Sheikh</a></h5>
-                                    <span class="designation">Office Assistant</span>
-                                    <p>Office of the Vice-Chancellor</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6" data-sal-delay="150" data-sal="slide-up" data-sal-duration="800">
-                        <div class="edu-team-grid team-style-2">
-                            <div class="inner">
-                                <div class="thumbnail-wrap">
-                                    <div class="thumbnail">
-                                        <a href="team-details.html">
-                                            <img src="assets/images/administration/vice_chancellor_office/Md.-Aiub-Hossen.jpg" alt="team images">
-                                        </a>
-                                    </div>
-                                    <ul class="team-share-info">
-                                        <li><a href="#"><i class="icon-facebook"></i></a></li>
-                                        <li><a href="#"><i class="icon-twitter"></i></a></li>
-                                        <li><a href="#"><i class="icon-linkedin2"></i></a></li>
-                                    </ul>
-                                </div>
-                                <div class="content">
-                                    <h5 class="title"><a href="team-details.html">MD Aiub Hossen</a></h5>
-                                    <span class="designation">Driver</span>
-                                    <p>Office of the Vice-Chancellor</p>
-                                </div>
-                            </div>
-                        </div>
+                    @endforeach
                     </div>
                 </div>
             </div>

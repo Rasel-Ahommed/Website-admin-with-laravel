@@ -85,7 +85,7 @@
                                 <div class="edu-event event-style-1">
                                     <div class="inner">
                                         <div class="thumbnail">
-                                            <a href="event1.html">
+                                            <a href="/event/deatils/{{$event->id}}">
                                                 @php
                                                     if ($img) {
                                                         $imgSrc = asset('storage/eventImage/' . $img->e_img);
@@ -116,7 +116,7 @@
                                                 <li><i class="icon-40"></i>{{$event->location}}</a></li>
                                             </ul>
                                             <div class="read-more-btn">
-                                                <a class="edu-btn btn-small btn-secondary" href="event1.html">Learn More <i
+                                                <a class="edu-btn btn-small btn-secondary" href="/event/deatils/{{$event->id}}">Learn More <i
                                                         class="icon-4"></i></a>
                                             </div>
                                         </div>
@@ -135,7 +135,7 @@
 
                     <ul class="shape-group">
                         <li class="shape-1" data-sal-delay="500" data-sal="fade" data-sal-duration="200">
-                            <img class="rotateit" src="assets/images/about/shape-13.png" alt="Shape">
+                            <img class="rotateit" src="/assets/images/about/shape-13.png" alt="Shape">
                         </li>
                         <li class="shape-2 scene" data-sal-delay="500" data-sal="fade" data-sal-duration="200">
                             <span data-depth=".9"></span>

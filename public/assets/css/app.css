@@ -37521,3 +37521,31 @@ html[dir="rtl"]
 .logo_link_college p {
   text-align: center;
 }
+
+
+/*---------------------
+ event details style 
+-----------------------*/
+
+.event-img-top img {
+  width: 100%;
+  border-radius: 5px;
+  height: auto;
+  max-height: 400px;
+  object-fit: cover;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.event-gallery-img {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.event-gallery-img img.gallery-img-event {
+  width: 100%;
+  max-width: 350px;
+  min-width: 220px;
+  object-fit: cover;
+  border-radius: 5px;
+}

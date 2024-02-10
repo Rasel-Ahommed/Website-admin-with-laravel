@@ -25,13 +25,19 @@
         <!--=====================================-->
         <my-nav></my-nav>
         <!--=====================================-->
+      @php
+          use App\Models\FacultyBspcs;
+
+          $data = FacultyBspcs::first();
+      @endphp
+
         <div class="governer_body">
             <div class="container">
               <div class="row align-items-center">
                 <div class="col-4">
                   <figure class="snip1178">
                     <img
-                      src="./assets/images/administration/office-of-the-deans/10.jpg"
+                      src="{{asset('storage/deanImg/'.$data->img)}}"
                       alt="sample53"
                     />
                     <!-- <div class="icons">
@@ -41,10 +47,10 @@
                   </figure>
                 </div>
                 <div class="col-8">
-                  <h1>Prof. Dr. Bappa Gautam</h1>
-                  <p>Dean</p>
+                  <h1>{{$data->name}}</h1>
+                  <p>{{$data->post}}</p>
                   <p>Faculty of Basic Science and para clinical Science</p>
-                  <p>Phone: 01715-165970</p>
+                  <p>{{$data->phone}}</p>
                 </div>
               </div>
             </div>

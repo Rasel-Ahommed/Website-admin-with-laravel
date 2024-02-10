@@ -24,27 +24,27 @@
         <!--=====================================-->
         <my-nav></my-nav>
         <!--=====================================-->
+        @php
+            use App\Models\FacultyNursing;
+            $data = FacultyNursing::first();
+        @endphp
         <div class="governer_body">
             <div class="container">
               <div class="row align-items-center">
                 <div class="col-4">
                   <figure class="snip1178">
                     <img
-                      src="./assets/images/administration/office-of-the-deans/49.jpg"
+                      src="{{asset('storage/deanImg/'.$data->img)}}"
                       alt="sample53"
                     />
-                    <!-- <div class="icons">
-                      <a href="#"><i class="ri-phone-line"></i></a>
-                      <a href="#"><i class="ri-at-line"></i></a>
-                    </div> -->
                   </figure>
                 </div>
                 <div class="col-8">
-                  <h1>Dr. Md. Kutub Uddin Mollick</h1>
-                  <p>Dean</p>
+                  <h1>{{$data->name}}</h1>
+                  <p>{{$data->post}}</p>
                   <p>Faculty of Nursing</p>
-                  <p>Phone: 01711-979084</p>
-                  <p>E-mail:drmollick42@gmail.com</p>
+                  <p>Phone: {{ $data->phone}}</p>
+                  <p>E-mail: {{ $data->email}}</p>
                 </div>
               </div>
             </div>

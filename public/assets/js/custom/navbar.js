@@ -30,7 +30,7 @@ class navbar extends HTMLElement {
             <div class="header-brand">
               <div class="logo">
                 <a href="/">
-                  <img class="logo-light" src="assets/images/logo/Website-Final-1-2.png" alt="Corporate Logo" />
+                  <img class="logo-light" src="/assets/images/logo/Website-Final-1-2.png" alt="Corporate Logo" />
                   <img class="logo-dark" src="assets/images/logo/Website-Final-1-2.png" alt="Corporate Logo" />
                 </a>
               </div>
@@ -150,7 +150,7 @@ class navbar extends HTMLElement {
             </div>
             <div class="nav-img">
               <div class="img-nav-left">
-                <img src="./assets/images/about/mujib_logo.png" alt="mujib_logo" />
+                <img src="/assets/images/about/mujib_logo.png" alt="mujib_logo" />
               </div>
             </div>
           </div>
@@ -161,8 +161,8 @@ class navbar extends HTMLElement {
           <div class="header-top">
             <div class="logo">
               <a href="/">
-                <img class="logo-light" src="assets/images/logo/Website-Final-1-2.png" alt="Corporate Logo" />
-                <img class="logo-dark" src="assets/images/logo/Website-Final-1-2.png" alt="Corporate Logo" />
+                <img class="logo-light" src="/assets/images/logo/Website-Final-1-2.png" alt="Corporate Logo" />
+                <img class="logo-dark" src="/assets/images/logo/Website-Final-1-2.png" alt="Corporate Logo" />
               </a>
             </div>
             <div class="close-menu">
@@ -261,8 +261,8 @@ class navbar extends HTMLElement {
       <div class="edu-search-popup">
         <div class="content-wrap">
           <div class="site-logo">
-            <img class="logo-light" src="assets/images/logo/Website-Final-1-2.png" alt="Corporate Logo" />
-            <img class="logo-dark" src="assets/images/logo/Website-Final-1-2.png" alt="Corporate Logo" />
+            <img class="logo-light" src="/assets/images/logo/Website-Final-1-2.png" alt="Corporate Logo" />
+            <img class="logo-dark" src="/assets/images/logo/Website-Final-1-2.png" alt="Corporate Logo" />
           </div>
           <div class="close-button">
             <button class="close-trigger"><i class="icon-73"></i></button>
@@ -293,7 +293,7 @@ class footer extends HTMLElement {
             <div class="edu-footer-widget">
               <div class="logo">
                 <a href="/">
-                  <img class="logo-light" src="assets/images/logo/Website-Final-1-2.png" alt="Corporate Logo" />
+                  <img class="logo-light" src="/assets/images/logo/Website-Final-1-2.png" alt="Corporate Logo" />
                 </a>
               </div>
               <div class="widget-information">

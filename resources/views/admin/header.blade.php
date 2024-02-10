@@ -85,7 +85,7 @@
                                      <ul class="dropdown-item">
                                        <li onclick="pageInnerData('facultymedicine')">Faculty of Medicine</li>
                                        <li onclick="pageInnerData('facultybspcs')">Faculty of Besic Science & Para Clinical Science</li>
-                                       <li onclick="pageInnerData('facultynurse')">Faculty of Nursing</li>
+                                       <li onclick="pageInnerData('facultynursing')">Faculty of Nursing</li>
                                      </ul>
                                    </div>
                               </ul>

@@ -94,5 +94,20 @@
         toastrContainer.style.marginTop = '4.5rem';
     </script>
 @endif
+
+ 
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    
+      setTimeout(function() {
+       
+          var notifications = document.querySelectorAll('.tox-notifications-container');
+
+          notifications.forEach(function(notification) {
+              notification.style.display = 'none';
+          });
+      }, 5000); // 50 seconds in milliseconds
+  });
+</script>
   </body>
 </html>

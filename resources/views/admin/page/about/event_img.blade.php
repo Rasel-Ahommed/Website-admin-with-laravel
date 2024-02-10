@@ -50,7 +50,7 @@
         <h1>Events Images</h1>
 
         <div class="section-body">
-            <div class="img-element-group d-flex justify-content-between flex-wrap">
+            <div class="img-element-group d-flex justify-content-around flex-wrap">
                 @foreach ($data as $d)
                     <div class="img-group text-center" id="hero1" style="width: 12rem;position: relative;">
 

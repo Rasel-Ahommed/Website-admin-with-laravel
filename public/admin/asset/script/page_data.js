@@ -28,6 +28,34 @@ function pageInnerData(res) {
         case 'chancellor':
             location.href = '/admin/chancellor';
             break;
+
+        case 'vc':
+            location.href = '/Vice-Chancellor';
+            break;
+            
+        case 'syndicate':
+            location.href = '/univercity/syndicate';
+            break;
+            
+        case 'academiccouncil':
+            location.href = '/academiccouncil';
+            break;
+
+        case 'admincouncil':
+            location.href = '/admincouncil';
+            break;
+            
+        case 'facultymedicine':
+            location.href = '/facultyOfMedicine';
+            break;
+
+        case 'facultybspcs':
+            location.href = '/facultybspcs';
+            break;
+
+        case 'facultynursing':
+            location.href = '/facultynursing';
+            break;
             
         case 'notice':
             location.href = '/notice';

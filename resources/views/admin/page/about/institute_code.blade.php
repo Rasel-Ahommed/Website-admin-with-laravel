@@ -89,7 +89,7 @@
                     @foreach ($institutes as $key => $inst)
                         <tr>
                             <th scope="row">{{ ($institutes->currentPage() - 1) * $institutes->perPage() + $key + 1 }}</th>
-                            <td ><img style="width: 100px;" src="{{ asset('storage/instituteCode/' . $inst->ins_logo) }}" alt="logo"></td>
+                            <td ><img style="width: 50px;" src="{{ asset('storage/instituteCode/' . $inst->ins_logo) }}" alt="logo"></td>
                             <td>{{ $inst->ins_name }}</td>
                             <td>{{ $inst->ins_code }}</td>
                             <td>{{ $inst->web_link }}</td>

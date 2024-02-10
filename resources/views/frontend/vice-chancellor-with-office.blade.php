@@ -28,7 +28,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-4">
-                        <img src="assets/images/administration/IMG-20220510-WA0048.jpg" alt="Vice Chancellor">
+                        <img src="{{asset('storage/chancellorImg/'.$data->img)}}" alt="Vice Chancellor">
                         <p>Professor Dr. Md. Mahbubur Rahman</p>
                     </div>
                     <div class="col-8">

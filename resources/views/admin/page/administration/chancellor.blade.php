@@ -2,11 +2,11 @@
 
 <section class="page-content">
     <div class="page-head">
-        <h1>Page / Campus Details</h1>
+        <h1>Page / Chancellor </h1>
     </div>
     <div class="section shadow">
         <div class="section-head">
-            <h1>Campus Details</h1>
+            <h1>Chancellor Details</h1>
             <div class="editbtn">
                 <button onclick="editSection(this)">
                     <i id="editEnable" class="ri-pencil-fill"></i>

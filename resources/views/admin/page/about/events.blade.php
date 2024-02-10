@@ -127,7 +127,7 @@
                             <td>{{ $startTime }}</td>
                             <td>{{ $endTime }}</td>
 
-                            <td class="text-center"><a href="{{route('event.img',['id'=> encrypt($event->id)])}}" >Image<i class="bi bi-cloud-arrow-up"></i></a></td>
+                            <td class="text-center"><a href="{{route('event.img',['id'=> encrypt($event->id)])}}" >Upload Images<i class="bi bi-cloud-arrow-up"></i></a></td>
                             
                             <td>
                                 <a href="{{ route('editEvent', ['id' => encrypt($event->id)]) }}">

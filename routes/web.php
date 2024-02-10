@@ -1,7 +1,17 @@
 <?php
 
+use App\Models\FacultyNursing;
+use App\Models\vcOfficeMember;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SyndicateController;
+use App\Http\Controllers\AdminCouncilController;
+use App\Http\Controllers\FacultyBspcsController;
+use App\Http\Controllers\FacultyNursingController;
+use App\Http\Controllers\VcOfficeMemberController;
+use App\Http\Controllers\ViceChancellorController;
+use App\Http\Controllers\AcademicCouncilController;
+use App\Http\Controllers\FacultyMedicineController;
 use App\Http\Controllers\adminController\homeController;
 use App\Http\Controllers\adminController\noticController;
 use App\Http\Controllers\adminController\reportController;
@@ -64,6 +74,11 @@ Route::get('/vision-mission', function () {
 Route::get('/event', function () {
     return  view('frontend/event');
 });
+
+Route::get('/event/deatils/{id}', function ($id) {
+    return  view('frontend/eventdtls',compact('id'));
+});
+
 Route::get('/chancellor', function () {
     return  view('frontend/chancellor');
 });
@@ -215,6 +230,68 @@ Route::middleware('auth')->group(function () {
     //------Chancellor route--------//
     Route::get('/admin/chancellor', [chancellorController::class, 'Index']);
     Route::post('/update/chancellor/{id}', [chancellorController::class, 'Update'])->name('chancellor/update');
+
+    //vice chancellor rote
+    Route::get('Vice-Chancellor', [ViceChancellorController::class, 'index']);
+
+    Route::post('Vice-Chancellor/update/{id}', [ViceChancellorController::class, 'update'])->name('viceChancellor.update');
+
+    Route::post('vc-office/member', [VcOfficeMemberController::class, 'store'])->name('vc.Office.Member');
+
+    Route::get('vc-office-member/edit/{id}', [VcOfficeMemberController::class, 'edit'])->name('edit.vcOfficeMember');
+
+    Route::post('vc-office-member/update/{id}', [VcOfficeMemberController::class, 'update'])->name('update.vcMember');
+
+    Route::get('vc-office-member/delete/{id}', [VcOfficeMemberController::class, 'destroy'])->name('delete.vcOfficeMember');
+
+    //univercity syndicate
+    Route::get('/univercity/syndicate', [SyndicateController::class, 'index']);
+    Route::post('/univercity/syndicate', [SyndicateController::class, 'store'])->name('univercity.syndicate');
+    Route::get('edit/univercity/syndicate/{id}', [SyndicateController::class, 'edit'])->name('edit.univercity.syndicate');
+
+    Route::post('update/univercity/syndicate/{id}', [SyndicateController::class, 'update'])->name('update.univercity.syndicate');
+
+    Route::get('delete/univercity/syndicate/{id}', [SyndicateController::class, 'destroy'])->name('delete.univercity.syndicate');
+    
+
+    //Academic Council
+    Route::get('/academiccouncil', [AcademicCouncilController::class, 'index']);
+
+    Route::post('/academiccouncil', [AcademicCouncilController::class, 'store'])->name('academiccouncil.store');
+
+    Route::get('edit/academiccouncil/{id}', [AcademicCouncilController::class, 'edit'])->name('edit.academiccouncil');
+
+    Route::post('update/academicCouncil/{id}', [AcademicCouncilController::class, 'update'])->name('update.academicCouncil');
+
+    Route::get('delete/academicCouncil/{id}', [AcademicCouncilController::class, 'destroy'])->name('delete.academiccouncil');
+
+
+     //admin Council
+     Route::get('/admincouncil', [AdminCouncilController::class, 'index']);
+
+     Route::post('/admincouncil', [AdminCouncilController::class, 'store'])->name('admin.council');
+ 
+     Route::get('edit/admin/council/{id}', [AdminCouncilController::class, 'edit'])->name('edit.admin.council');
+ 
+     Route::post('update/admin/council/{id}', [AdminCouncilController::class, 'update'])->name('update.admin.council');
+ 
+     Route::get('delete/admin/council/{id}', [AdminCouncilController::class, 'destroy'])->name('delete.admin.council');
+    
+    //faculty of medicine
+    Route::get('/facultyOfMedicine', [FacultyMedicineController::class, 'index']);
+    Route::post('/faculty-of-medicine/{id}', [FacultyMedicineController::class, 'update'])->name('update.facultyofmedicine');
+
+    //faculty of facultybspcs
+    Route::get('/facultybspcs', [FacultyBspcsController::class, 'index']);
+
+    Route::post('/facultybspcs/{id}', [FacultyBspcsController::class, 'update'])->name('update.facultybspcs');
+
+    //faculty of nursing
+    Route::get('/facultynursing', [FacultyNursingController::class, 'index']);
+
+    Route::post('/facultynursing/{id}', [FacultyNursingController::class, 'update'])->name('update.facultynursing');
+  
+    
 
     //--------------------------------------------------------------//
     // ------------------- Administration section route end-------//

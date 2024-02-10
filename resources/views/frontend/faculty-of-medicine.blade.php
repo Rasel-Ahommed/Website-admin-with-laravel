@@ -29,13 +29,18 @@
       <!--=====================================-->
       <my-nav></my-nav>
       <!--=====================================-->
+
+      @php
+          use App\Models\FacultyMedicine;
+          $data = FacultyMedicine::first();
+      @endphp
       <div class="governer_body">
         <div class="container">
           <div class="row align-items-center">
             <div class="col-4">
               <figure class="snip1178">
                 <img
-                  src="./assets/images/administration/office-of-the-deans/Professor-Dr.-Md.-Din-Ul-Islam-Principal-150x150-1.jpg"
+                  src="{{asset('storage/facultysImg/'.$data->img)}}"
                   alt="sample53"
                 />
                 <!-- <div class="icons">
@@ -45,11 +50,11 @@
               </figure>
             </div>
             <div class="col-8">
-              <h1>Professor Dr. Md. Din-Ul Islam</h1>
-              <p>Dean</p>
+              <h1>{{$data->name}}</h1>
+              <p>{{$data->post}}</p>
               <p>Faculty of Medicine</p>
-              <p>Phone: 01722-553289</p>
-              <p>E-mail:dr.dinul.islam@gmail.com</p>
+              <p>{{$data->phone}}</p>
+              <p>{{$data->email}}</p>
             </div>
           </div>
         </div>
