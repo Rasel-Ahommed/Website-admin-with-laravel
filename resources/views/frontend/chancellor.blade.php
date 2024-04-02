@@ -2,9 +2,6 @@
 
 @section('main-contant')
 <body class="sticky-header ">
-    <!--[if lte IE 9]>
-    <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
-  	<![endif]-->
 
     <div id="SHMU-preloader">
         <div class="loading-spinner">
@@ -37,7 +34,7 @@
                         <div class="col-lg-4">
                             <div class="team-details-thumb">
                                 <div class="thumbnail">
-                                    <img src="{{asset('storage/chancellorImg/'.$data->chan_img)}}" alt="Vice Chancellor" loading="lazy">
+                                    <img src="{{$data->chan_img}}" alt="Vice Chancellor" loading="lazy">
                                 </div>
                                 <ul class="social-share">
                                     <li><a href="{{$data->chan_web}}"><i class="icon-share-alt"></i></a></li>

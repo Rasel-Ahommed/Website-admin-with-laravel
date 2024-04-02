@@ -49,7 +49,7 @@
                                         <div class="member-detail">
                                             <div class="member-img">
                                                 <img loading="lazy"
-                                                    src="{{ asset('storage/adminCouncil/'.$data->img)}}"
+                                                    src="{{$data->img}}"
                                                     alt="">
                                             </div>
                                             <div class="member-content">

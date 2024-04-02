@@ -42,7 +42,7 @@
                     <div class="col-lg-4">
                         <div class="team-details-thumb">
                             <div class="thumbnail">
-                                <img src="{{asset('storage/chancellorImg/'.$data->img)}}" alt="Vice Chancellor">
+                                <img src="{{$data->img}}" alt="Vice Chancellor">
                             </div>
                             <ul class="social-share">
                                 <li><a href="{{$data->webLink}}"><i class="icon-share-alt"></i></a></li>
@@ -100,7 +100,7 @@
                                 <div class="thumbnail-wrap">
                                     <div class="thumbnail">
                                         <a href="#">
-                                            <img src="{{asset('storage/vc-office-member/'.$data->img)}}" alt="team images">
+                                            <img src="{{$data->img}}" alt="team images">
                                         </a>
                                     </div>
                                     <ul class="team-share-info">

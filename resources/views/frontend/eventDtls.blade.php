@@ -23,7 +23,7 @@
             <my-nav></my-nav>
             <!--=====================================-->
 
-            @php
+            {{-- @php
                 use App\Models\NewsAndEvents;
                 use App\Models\EventImage;
                 use Carbon\Carbon;
@@ -41,27 +41,27 @@
 
                 // Fetch all records
                 $allImgs = EventImage::where('event_id', $event->id)->get();
-
-            @endphp
+{{$firstImg->e_img}} {{ $formattedCreatedAt}}{{$startTime ." - ". $endTime}}{{$event->location}}
+            @endphp --}}
 
             <div class="event-details container">
                 <div class="event-details-content py-3">
                     <div class="event-hero-img">
                         <div class="event-img-top">
-                            <img src="{{ asset('storage/eventImage/' . $firstImg->e_img) }}" alt="Event Hero Banner"
+                            <img src="" alt="Event Hero Banner"
                                 class="" loading="lazy" />
                             <div class="event-img-data d-flex justify-content-between">
                                 <div class="event-date-time d-flex flex-wrap">
                                     <p class="event-date m-0 d-flex align-items-center pe-4">
-                                        <i class="ri-calendar-2-line"></i>{{ $formattedCreatedAt}}
+                                        <i class="ri-calendar-2-line"></i>
                                     </p>
                                     <p class="event-time m-0 d-flex align-items-center">
-                                        <i class="ri-time-line"></i>{{$startTime ." - ". $endTime}}
+                                        <i class="ri-time-line"></i>
                                     </p>
                                 </div>
                                 <div class="event-location">
                                     <p class="event-loc m-0 d-flex align-items-center">
-                                        <i class="ri-map-pin-2-line"></i>{{$event->location}}
+                                        <i class="ri-map-pin-2-line"></i>
                                     </p>
                                 </div>
                             </div>
@@ -69,12 +69,12 @@
                     </div>
                     <div class="event-title pt-3">
                         <p class="text-center h4">
-                            {{$event->event_title}}
+                            {{-- {{$event->event_title}} --}}
                         </p>
                     </div>
                     <div class="event-paragraph">
                         <p>
-                            {{$event->event_text}}
+                            {{-- {{$event->event_text}} --}}
                         </p>
                     </div>
                     <div class="event-gallery">
@@ -82,10 +82,10 @@
                             Event Gallery
                         </p>
                         <div class="event-gallery-img">
-                            @foreach ($allImgs as $allImg)
-                                <img src="{{ asset('storage/eventImage/' . $allImg->e_img) }}" alt="Event Gallery" class="gallery-img-event">
+                            {{-- @foreach ($allImgs as $allImg)
+                                <img src="{{$allImg->e_img}}" alt="Event Gallery" class="gallery-img-event">
                                
-                            @endforeach
+                            @endforeach --}}
                         </div>
                     </div>
                 </div>

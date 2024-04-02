@@ -3,11 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Syndicate;
+use App\Models\Activities;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use App\Traits\ImageUploadTrait;
 
 class SyndicateController extends Controller
 {
+    use ImageUploadTrait;
     public function index(){
         $datas = Syndicate::paginate(10);
         return view('admin/page/administration/universitySyndicate', compact('datas'));
@@ -21,18 +24,11 @@ class SyndicateController extends Controller
             'image'=> 'required|mimes:png,jpg,jpeg,webp'
         ]);
         
-        // get file extension 
-        $extension = $request->file('image')->getClientOriginalExtension();
-
-        //create uniq image name
-        $fileName = uniqid(). '.'.$extension;
-        //storage path
-        $path = 'public/syndicate';
-        //store new image
-        $request->file('image')->storeAs($path,$fileName);
+        $path = $this->uploadImage($request, 'image', 'univercity_syndicate');
+        $relativePath = str_replace(public_path(), '', $path);
        
        $data=[
-           'img' => $fileName,
+           'img' => $relativePath,
            'name' => $request->name,
            'post' => $request->post,
            'email' => $request->email,
@@ -59,23 +55,15 @@ class SyndicateController extends Controller
 
         if($request->hasFile('image')){
             
-            // get file extension 
-            $extension = $request->file('image')->getClientOriginalExtension();
-            
-            //create uniq image name
-            $fileName = time().'-'. uniqid(). '.'.$extension;
-
-            //storage path
-            $path = 'public/syndicate';
-            //store new image
-            $request->file('image')->storeAs($path,$fileName);
+            $path = $this->uploadImage($request, 'image', 'univercity_syndicate');
+            $relativePath = str_replace(public_path(), '', $path);
 
             // delete old image 
             if ($data->img) {
-                Storage::delete('public/syndicate/' . $data->img);
+                unlink($data->img);
             }
 
-            $data->img = $fileName ;
+            $data->img = $relativePath ;
         }
         $data->name = $request->name;
         $data->post = $request->post;
@@ -83,7 +71,12 @@ class SyndicateController extends Controller
 
         $data->save();
 
-        return redirect('/univercity/syndicate')->with('success','The member has been successfully changed');
+        // save update record 
+        $activites['name'] = 'Syndicate section';
+        $activites['date_time'] = $data->updated_at;
+        Activities::create($activites);
+        
+        return redirect()->route('univercity.syndicate')->with('success','The member has been successfully changed');
     }
 
     public function destroy($id){

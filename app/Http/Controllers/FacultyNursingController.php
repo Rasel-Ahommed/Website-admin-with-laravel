@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Activities;
 use Illuminate\Http\Request;
 use App\Models\FacultyNursing;
 use Illuminate\Support\Facades\Storage;
+use App\Traits\ImageUploadTrait;
 
 class FacultyNursingController extends Controller
 {
+    use ImageUploadTrait;
     public function index(){
         $data = FacultyNursing::first();
         return view('admin/page/administration/facultyOfNursing', compact('data'));
@@ -26,23 +29,15 @@ class FacultyNursingController extends Controller
 
         // check image set or not 
         if($request->hasFile('image')){
-            // get file extension 
-            $extension = $request->file('image')->getClientOriginalExtension();
-
-            //create uniq image name
-            $fileName = time().'-'. uniqid(). '.'.$extension;
-
-            //storage path
-            $path = 'public/deanImg';
-            //store new image
-            $request->file('image')->storeAs($path,$fileName);
+            $path = $this->uploadImage($request, 'image', 'all_facultys');
+            $relativePath = str_replace(public_path(), '', $path);
 
             // delete old image 
             if ($data->img) {
-                Storage::delete('public/deanImg/' . $data->img);
+               unlink($data->img);
             }
 
-            $data->img = $fileName ;
+            $data->img = $relativePath ;
         }
 
         $data->name = $request->name;
@@ -51,6 +46,12 @@ class FacultyNursingController extends Controller
         $data->email = $request->email;
 
         $data->save();
+
+        // save update record 
+        $activites['name'] = 'Faculty Of Nursing section';
+        $activites['date_time'] = $data->updated_at;
+        Activities::create($activites);
+        
         return redirect()->back()->with('success',"The campus details has been successfully changed");
     }
 }

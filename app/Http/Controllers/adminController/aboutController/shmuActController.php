@@ -4,12 +4,15 @@ namespace App\Http\Controllers\adminController\aboutController;
 
 use App\Models\ActDocs;
 use App\Models\ActText;
+use App\Models\Activities;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
+use App\Traits\ImageUploadTrait;
 
 class shmuActController extends Controller
 {
+    use ImageUploadTrait;
     public function Index(){
         $data = ActText::first();
         $acts = ActDocs::latest()->paginate(10);
@@ -31,6 +34,11 @@ class shmuActController extends Controller
         $data->act_title = $request->title;
         $data->act_text = $request->text;
 
+        // save update record 
+        $activites['name'] = 'Shmu Act section';
+        $activites['date_time'] = $data->updated_at;
+        Activities::create($activites);
+
         $data->save();
         return redirect()->back()->with('success','The Act Text has been successfully changed');
     }
@@ -41,17 +49,20 @@ class shmuActController extends Controller
             'actTitle' => 'required'
         ]);
 
-        $extension = $request->file('actDoc')->getClientOriginalExtension();
-        $fileName = 'Shmu_Act'.uniqid(). '.' . $extension;
+        // $extension = $request->file('actDoc')->getClientOriginalExtension();
+        // $fileName = 'Shmu_Act'.uniqid(). '.' . $extension;
 
-        $path = 'public/shmuAct';
+        // $path = 'public/shmuAct';
 
-        $request->file('actDoc')->storeAs($path,$fileName);
+        // $request->file('actDoc')->storeAs($path,$fileName);
+        $path = $this->uploadImage($request, 'actDoc', 'act');
+        $relativePath = str_replace(public_path(), '', $path);
+       
 
         $data['actDoc_heading'] = $request->actTitle;
-        $data['actDoc_file'] = $fileName;
+        $data['actDoc_file'] = $relativePath;
 
-       $acts = ActDocs::create($data);
+        ActDocs::create($data);
         return redirect()->back()->with('success','The act has been successfully added');
     }
 
@@ -72,22 +83,18 @@ class shmuActController extends Controller
         $data = ActDocs::FindOrFail($id);
 
         if($request->hasFile('actDoc')){
-            $extension = $request->file('actDoc')->getClientOriginalExtension();
-            $fileName = 'Shmu_Act'.uniqid(). '.' . $extension;
-    
-            $path = 'public/shmuAct';
-    
-            $request->file('actDoc')->storeAs($path,$fileName);
+            $path = $this->uploadImage($request, 'actDoc', 'act');
+            $relativePath = str_replace(public_path(), '', $path);
 
             if($data->actDoc_file){
-                Storage::delete('public/shmuAct/' . $data->actDoc_file);
+                unlink($data->actDoc_file);
             }
 
-            $data->actDoc_file =  $fileName; 
+            $data->actDoc_file = $relativePath; 
         }
         $data->actDoc_heading =  $request->actTitle;
         $data->save();
-        return redirect('/shmu/Act')->with('success','The act has been successfuly changed');
+        return redirect()->route('admin-shmu-Act')->with('success','The act has been successfuly changed');
         
     }
 
@@ -97,7 +104,7 @@ class shmuActController extends Controller
         $data = ActDocs::FindOrFail($id);
         
         if($data->actDoc_file){
-            Storage::delete('public/shmuAct/' . $data->actDoc_file);
+            unlink($data->actDoc_file);
         }
 
         $data->delete();

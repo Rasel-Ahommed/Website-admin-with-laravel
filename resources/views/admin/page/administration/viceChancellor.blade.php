@@ -23,7 +23,7 @@
                     <div class="text-content">
                         <label for="">Vice Chancellor Image : </label>
                         <div class="text-img" id="hero6">
-                            <img class="img-group" src="{{ asset('storage/chancellorImg/' . $data->img) }}"
+                            <img class="img-group" src="{{$data->img}}"
                                 id="heroimg" />
                             <input type="file" accept="image/*" name="image" class="filehero inpbox"
                                 onchange="loadFile(this)" />
@@ -143,12 +143,20 @@
                             @enderror
                         </div>
 
-
-
                         <div class="text-para">
                             <label for="paragraph">
                                 About Vice Chancellor
                                 <textarea class="input-item" name="aboutChancellor" id="paragraph" placeholder="Enter about" disabled>{{ $data->about }}</textarea>
+                            </label>
+                        </div>
+                        @error('aboutChancellor')
+                            <div class=" text-danger">{{ $message }}</div>
+                        @enderror
+
+                        <div class="text-para">
+                            <label for="paragraph">
+                                Message from Vice Chancellor
+                                <textarea class="input-item" name="message" id="paragraph" placeholder="Enter about" disabled>{{ $data->message }}</textarea>
                             </label>
                         </div>
                         @error('aboutChancellor')
@@ -267,15 +275,16 @@
                             <tr>
                                 <th scope="row">{{ ($members->currentPage() - 1) * $members->perPage() + $key + 1 }}</th>
 
-                                <td><img src="{{asset('storage/vc-office-member/'.$member->img)}}" style="width:50px" alt="img"></td>
+                                <td><img src="{{$member->img}}" style="width:50px" alt="img"></td>
                                 <td>{{$member->name}}</td>
                                 <td>{{$member->post}}</td>
                                 <td>{{$member->facebook}}</td>
                                 <td>{{$member->twitter}}</td>
                                 <td>{{$member->linkedin}}</td>
 
-                                <td class="d-flex">
-                                    <a class="ml-1" href="{{route('edit.vcOfficeMember',['id'=>encrypt($member->id)])}}">
+                                <td>
+                                    <div class="d-flex">
+                                    <a class="mx-2" href="{{route('edit.vcOfficeMember',['id'=>encrypt($member->id)])}}">
                                         <button class="btn btn-primary mb-2"><i
                                                 class="bi bi-pencil-square"></i></button>
                                     </a>
@@ -284,6 +293,7 @@
                                         href="{{route('delete.vcOfficeMember',['id'=>encrypt($member->id)])}}">
                                         <button class="btn btn-danger"><i class="bi bi-trash-fill"></i></button>
                                     </a>
+                                </div>
                                 </td>
                             </tr>
                         @endforeach

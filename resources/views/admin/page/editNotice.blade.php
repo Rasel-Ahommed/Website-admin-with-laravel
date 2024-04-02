@@ -38,7 +38,7 @@
                         {{-- upload file --}}
                         <div class="" id="hero1">
                             <label for="">Upload Notice:</label>
-                            <input type="file" name="notice_file" /> <br>{{$data->notice_file}}
+                            <input type="file" name="notice_file" />
                             @error('notice_file')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror

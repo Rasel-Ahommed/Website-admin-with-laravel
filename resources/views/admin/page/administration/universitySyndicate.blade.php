@@ -83,13 +83,14 @@
                         @foreach ($datas as $key => $data)
                             <tr>
                                 <th scope="row">{{ ($datas->currentPage() - 1) * $datas->perPage() + $key + 1 }}</th>
-                                <td><img src="{{ asset('storage/syndicate/' . $data->img) }}" style="width:50px"
+                                <td><img src="{{$data->img}}" style="width:50px"
                                         alt="img"></td>
                                 <td>{{ $data->name }}</td>
                                 <td>{{ $data->post }}</td>
                                 <td>{{ $data->email }}</td>
-                                <td class="d-flex">
-                                    <a class="" href="{{ route('edit.univercity.syndicate', ['id' => $data->id]) }}"
+                                <td >
+                                    <div class="d-flex">
+                                    <a class="mx-2" href="{{ route('edit.univercity.syndicate', ['id' => $data->id]) }}"
                                         style="margin-right:10px">
                                         <button class="btn btn-primary mb-2"><i
                                                 class="bi bi-pencil-square"></i></button>
@@ -98,6 +99,7 @@
                                     <a onclick="return confirm('Are you sure to delete this notice')" href="{{route('delete.univercity.syndicate',['id'=>$data->id])}}">
                                         <button class="btn btn-danger"><i class="bi bi-trash-fill"></i></button>
                                     </a>
+                                </div>
                                 </td>
                             </tr>
                         @endforeach

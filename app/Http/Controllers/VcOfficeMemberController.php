@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Activities;
 use Illuminate\Http\Request;
 use App\Models\vcOfficeMember;
 use Illuminate\Support\Facades\Storage;
+use App\Traits\ImageUploadTrait;
 
 class VcOfficeMemberController extends Controller
 {
+    use ImageUploadTrait;
     public function store( Request $request){
         $request->validate([
             'mem_image' => 'required|mimes:png,jpg,jpeg,webp',
@@ -15,19 +18,10 @@ class VcOfficeMemberController extends Controller
             'mem_post' => 'required',
         ]);
 
-         // get file extension 
-         $extension = $request->file('mem_image')->getClientOriginalExtension();
-
-         //create uniq image name
-         $fileName = uniqid(). '.'.$extension;
-
-         //storage path
-         $path = 'public/vc-office-member';
-         //store new image
-         $request->file('mem_image')->storeAs($path,$fileName);
-        
+        $path = $this->uploadImage($request, 'mem_image', 'vc_office');
+        $relativePath = str_replace(public_path(), '', $path);
         $data=[
-            'img' => $fileName,
+            'img' => $relativePath,
             'name' => $request->mem_name,
             'post' => $request->mem_post,
             'facebook' => $request->mem_facebook,
@@ -59,23 +53,14 @@ class VcOfficeMemberController extends Controller
         
         if($request->hasFile('mem_image')){
             
-            // get file extension 
-            $extension = $request->file('mem_image')->getClientOriginalExtension();
-            
-            //create uniq image name
-            $fileName = time().'-'. uniqid(). '.'.$extension;
-
-            //storage path
-            $path = 'public/vc-office-member';
-            //store new image
-            $request->file('mem_image')->storeAs($path,$fileName);
-
+            $path = $this->uploadImage($request, 'mem_image', 'vc_office');
+            $relativePath = str_replace(public_path(), '', $path);
             // delete old image 
             if ($data->img) {
-                Storage::delete('public/vc-office-member/' . $data->img);
+                unlink($data->img);
             }
 
-            $data->img = $fileName ;
+            $data->img = $relativePath ;
         }
         $data->name = $request->mem_name;
         $data->post = $request->mem_post;
@@ -85,7 +70,13 @@ class VcOfficeMemberController extends Controller
 
         $data->save();
 
-        return redirect('/Vice-Chancellor')->with('success','The member has been successfully changed');
+        // save update record 
+        $activites['name'] = 'Vc Office Member section';
+        $activites['date_time'] = $data->updated_at;
+        Activities::create($activites);
+        
+
+        return redirect()->route('Vice-Chancellor')->with('success','The member has been successfully changed');
     }
 
     public function destroy($id){
@@ -94,7 +85,7 @@ class VcOfficeMemberController extends Controller
         $data = vcOfficeMember::FindOrFail($id);
 
         //delete image from storage
-        Storage::delete('public/vc-office-member/' . $data->img);
+        unlink($data->img);
         $data->delete();
 
         return redirect()->back()->with('delete','The member has been successfully deleted');

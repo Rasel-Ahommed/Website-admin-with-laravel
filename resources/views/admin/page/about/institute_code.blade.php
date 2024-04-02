@@ -19,7 +19,7 @@
                         {{-- select date  --}}
                         <div class="form-group">
                             <label for="exampleInputPassword1">Institute Loge</label>
-                            <input type="file" name='institiuteLoge' class="form-control" id="exampleInputPassword1"
+                            <input type="file" accept="image/*"name='institiuteLoge' class="form-control" id="exampleInputPassword1"
                                 value="{{ old('institiuteLoge') }}">
                         </div>
                         @error('institiuteLoge')
@@ -36,6 +36,25 @@
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
 
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Institute Type</label>
+                            @php
+                                $instituteTypes = DB::table('institute_type')->get();
+                            @endphp
+                            <select class="form-select" name="instituteType" aria-label="Default select example">
+                                <option selected>Select Institute Type</option>
+                                @foreach ($instituteTypes as $instituteType)
+                                    <option value="{{ $instituteType->id }}">{{ $instituteType->name }}</option>
+                                @endforeach
+
+                            </select>
+                        </div>
+                        @error('instituteName')
+                            <div class="text-danger">{{ $message }}</div>
+                        @enderror
+
+
+
                         {{-- select Institute Code  --}}
                         <div class="form-group">
                             <label for="exampleInputPassword1">Institute Code</label>
@@ -50,7 +69,7 @@
                         <div class="form-group">
                             <label for="exampleInputPassword1">Institute Website Link</label>
                             <input type="text" name="webLink" class="form-control" id="exampleInputPassword1"
-                               value="{{ old('webLink') }}">
+                                value="{{ old('webLink') }}">
                         </div>
                         @error('webLink')
                             <div class="text-danger">{{ $message }}</div>
@@ -68,7 +87,8 @@
 {{-- see all institute code  --}}
 @php
     use App\Models\InstituteCode;
-    $institutes = InstituteCode::latest()->paginate(10);
+    // $institutes = InstituteCode::latest()->paginate(10);
+    $institutes = InstituteCode::select('institute_codes.*', 'institute_type.name as institute_type_name')->join('institute_type', 'institute_codes.Institute_type_id', '=', 'institute_type.id')->paginate(10);
 @endphp
 
 <div class="container p-4">
@@ -80,6 +100,7 @@
                         <th scope="col">#</th>
                         <th scope="col">Institute Logo</th>
                         <th scope="col">Institute Name</th>
+                        <th scope="col">Institute Type</th>
                         <th scope="col">Code</th>
                         <th scope="col">Website Link</th>
                         <th scope="col">Action</th>
@@ -87,19 +108,26 @@
                 </thead>
                 <tbody>
                     @foreach ($institutes as $key => $inst)
+                    
                         <tr>
-                            <th scope="row">{{ ($institutes->currentPage() - 1) * $institutes->perPage() + $key + 1 }}</th>
-                            <td ><img style="width: 50px;" src="{{ asset('storage/instituteCode/' . $inst->ins_logo) }}" alt="logo"></td>
+                            <th scope="row">
+                                {{ ($institutes->currentPage() - 1) * $institutes->perPage() + $key + 1 }}</th>
+                            <td><img style="width: 50px;" src="{{$inst->ins_logo}}"
+                                    alt="logo"></td>
                             <td>{{ $inst->ins_name }}</td>
+                            <td>{{ $inst->institute_type_name }}</td>
                             <td>{{ $inst->ins_code }}</td>
                             <td>{{ $inst->web_link }}</td>
                             <td>
-                                <a href="{{route('edit.institute',['id'=>encrypt($inst->id)])}}">
-                                    <button class="btn btn-primary mb-2"><i class="bi bi-pencil-square"></i></button>
-                                </a>
-                                <a onclick="return confirm('Are you sure to delete this notice')" href="{{route('delete.institute',['id'=>encrypt($inst->id)])}}">
-                                    <button class="btn btn-danger"><i class="bi bi-trash-fill"></i></button>
-                                </a>
+                                <div class="d-flex">
+                                    <a class="mx-2" href="{{ route('edit.institute', ['id' => encrypt($inst->id)]) }}">
+                                        <button class="btn btn-primary mb-2"><i class="bi bi-pencil-square"></i></button>
+                                    </a>
+                                    <a onclick="return confirm('Are you sure to delete this notice')"
+                                        href="{{ route('delete.institute', ['id' => encrypt($inst->id)]) }}">
+                                        <button class="btn btn-danger"><i class="bi bi-trash-fill"></i></button>
+                                    </a>
+                                </div>
                             </td>
                         </tr>
                     @endforeach

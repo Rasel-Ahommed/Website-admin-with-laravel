@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Activities;
 use Illuminate\Http\Request;
 use App\Models\AcademicCouncil;
 use Illuminate\Support\Facades\Storage;
+use App\Traits\ImageUploadTrait;
 
 class AcademicCouncilController extends Controller
 {
+    use ImageUploadTrait;
     public function index(){
         $datas = AcademicCouncil::paginate(10);
         return view('admin/page/administration/academicCouncil', compact('datas'));
@@ -21,18 +24,11 @@ class AcademicCouncilController extends Controller
             'image'=> 'required|mimes:png,jpg,jpeg,webp'
         ]);
         
-        // get file extension 
-        $extension = $request->file('image')->getClientOriginalExtension();
-
-        //create uniq image name
-        $fileName = uniqid(). '.'.$extension;
-        //storage path
-        $path = 'public/academic';
-        //store new image
-        $request->file('image')->storeAs($path,$fileName);
+        $path = $this->uploadImage($request, 'image', 'academic_council');
+        $relativePath = str_replace(public_path(), '', $path);
        
        $data=[
-           'img' => $fileName,
+           'img' => $relativePath,
            'name' => $request->name,
            'post' => $request->post,
            'email' => $request->email,
@@ -59,24 +55,16 @@ class AcademicCouncilController extends Controller
         $data = AcademicCouncil::FindOrFail($id);
 
         if($request->hasFile('image')){
-            
-            // get file extension 
-            $extension = $request->file('image')->getClientOriginalExtension();
-            
-            //create uniq image name
-            $fileName = time().'-'. uniqid(). '.'.$extension;
-
-            //storage path
-            $path = 'public/academic';
-            //store new image
-            $request->file('image')->storeAs($path,$fileName);
+           
+            $path = $this->uploadImage($request, 'image', 'academic_council');
+            $relativePath = str_replace(public_path(), '', $path);
 
             // delete old image 
             if ($data->img) {
-                Storage::delete('public/academic/' . $data->img);
+                unlink($data->img);
             }
 
-            $data->img = $fileName ;
+            $data->img = $relativePath ;
         }
         $data->name = $request->name;
         $data->post = $request->post;
@@ -84,11 +72,18 @@ class AcademicCouncilController extends Controller
 
         $data->save();
 
-        return redirect('/academiccouncil')->with('success','The member has been successfully changed');
+        // save update record 
+        $activites['name'] = 'Academic councile section';
+        $activites['date_time'] = $data->updated_at;
+        Activities::create($activites);
+        
+
+        return redirect()->route('academiccouncil')->with('success','The member has been successfully changed');
     }
 
     public function destroy($id){
         $data= AcademicCouncil::FindOrFail($id);
+        unlink($data->img);
         $data->delete();
         return back()->with('success','The member has been successfully deleted');
     }

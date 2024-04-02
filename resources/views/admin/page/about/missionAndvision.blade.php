@@ -29,7 +29,7 @@
                         
                         <label for="img">Mission Image:</label>
                         <div class="text-img" id="hero6">
-                            <img class="img-group" src="{{asset('storage/mission_visionImg/'. $data->mv_img)}}" id="heroimg"/>
+                            <img class="img-group" src="{{$data->mv_img}}" id="heroimg"/>
                             <input type="file" accept="image/*" name="image" class="filehero inpbox" onchange="loadFile(this)"/>
                         </div>
                         @error('image')
@@ -94,7 +94,7 @@
                     <div class="text-content">
                         <label for="img">Vision Image:</label>
                         <div class="text-img" id="hero6">
-                            <img class="img-group" src="{{asset('storage/mission_visionImg/'. $data2->mv_img)}}" id="heroimg"/>
+                            <img class="img-group" src="{{$data2->mv_img}}" id="heroimg"/>
                             <input type="file" accept="image/*" name="image" class="filehero inpbox" onchange="loadFile(this)"/>
                         </div>
                         @error('image')

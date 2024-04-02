@@ -20,7 +20,7 @@
                         {{-- select date  --}}
                         <div class="form-group">
 
-                            <label for="exampleInputPassword1">Institute Loge</label><img style="width: 100px; margin:10px" src="{{ asset('storage/instituteCode/' . $data->ins_logo) }}" alt="logo">
+                            <label for="exampleInputPassword1">Institute Loge</label>
 
                             <input type="file" name='institiuteLoge' class="form-control" id="exampleInputPassword1"
                                 value="{{ old('institiuteLoge') }}">
@@ -38,6 +38,19 @@
                         @error('instituteName')
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
+
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Institute Type</label>
+                            @php
+                                $instituteTypes = DB::table('institute_type')->get();
+                            @endphp
+                            <select class="form-select" name="instituteType" aria-label="Default select example">
+                                <option selected>Select Institute Type</option>
+                                @foreach ($instituteTypes as $instituteType)
+                                    <option value="{{ $instituteType->id }}" @if ($instituteType->id == $data->Institute_type_id) selected @endif>{{ $instituteType->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
 
                         {{-- select Institute Code  --}}
                         <div class="form-group">

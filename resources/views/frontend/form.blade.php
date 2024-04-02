@@ -48,278 +48,38 @@
                   </tr>
                 </thead>
                 <tbody>
+
+                    @php
+                        use App\Models\Forms;
+
+                        $datas = Forms::latest()->paginate(10);
+                    @endphp
+
+                    @foreach ($datas as $key => $data)
+                        
+                    
                     <tr>
-                        <td>01</td>
+                        <td>{{ ($datas->currentPage() - 1) * $datas->perPage() + $key + 1 }}</td>
                         <td>
-                            <a target="_blank" href="./assets/circuler/image.webp">
-                                Application Form For MBBS Student
+                            <a  href="#">
+                               {{$data->headline}}
                             </a>
                         </td>
                         <td>
-                            <a class="fs-3 btn btn-success" href="./assets/images/form/job-application-form-template-600x776.jpg" role="button">
+                            <a class="fs-3 btn btn-success" href="{{asset('storage/forms/'. $data->file)}}" role="button" target="_blank">
                                 View
                             </a>
                         </td>
                         <td>
-                            <a class="fs-1" href="./assets/images/form/job-application-form-template-600x776.jpg" role="button" download>
+                            <a class="fs-1" href="{{$data->file}}" role="button" download>
                                 <i class="ri-download-2-line"></i>
                             </a>
                         </td>
                     </tr>
-                    <tr>
-                        <td>01</td>
-                        <td>
-                            <a target="_blank" href="./assets/circuler/image.webp">
-                                Application Form For MBBS Student
-                            </a>
-                        </td>
-                        <td>
-                            <a class="fs-3 btn btn-success" href="./assets/images/form/job-application-form-template-600x776.jpg" role="button">
-                                View
-                            </a>
-                        </td>
-                        <td>
-                            <a class="fs-1" href="./assets/images/form/job-application-form-template-600x776.jpg" role="button" download>
-                                <i class="ri-download-2-line"></i>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>01</td>
-                        <td>
-                            <a target="_blank" href="./assets/circuler/image.webp">
-                                Application Form For MBBS Student
-                            </a>
-                        </td>
-                        <td>
-                            <a class="fs-3 btn btn-success" href="./assets/images/form/job-application-form-template-600x776.jpg" role="button">
-                                View
-                            </a>
-                        </td>
-                        <td>
-                            <a class="fs-1" href="./assets/images/form/job-application-form-template-600x776.jpg" role="button" download>
-                                <i class="ri-download-2-line"></i>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>01</td>
-                        <td>
-                            <a target="_blank" href="./assets/circuler/image.webp">
-                                Application Form For MBBS Student
-                            </a>
-                        </td>
-                        <td>
-                            <a class="fs-3 btn btn-success" href="./assets/images/form/job-application-form-template-600x776.jpg" role="button">
-                                View
-                            </a>
-                        </td>
-                        <td>
-                            <a class="fs-1" href="./assets/images/form/job-application-form-template-600x776.jpg" role="button" download>
-                                <i class="ri-download-2-line"></i>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>01</td>
-                        <td>
-                            <a target="_blank" href="./assets/circuler/image.webp">
-                                Application Form For MBBS Student
-                            </a>
-                        </td>
-                        <td>
-                            <a class="fs-3 btn btn-success" href="./assets/images/form/job-application-form-template-600x776.jpg" role="button">
-                                View
-                            </a>
-                        </td>
-                        <td>
-                            <a class="fs-1" href="./assets/images/form/job-application-form-template-600x776.jpg" role="button" download>
-                                <i class="ri-download-2-line"></i>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>01</td>
-                        <td>
-                            <a target="_blank" href="./assets/circuler/image.webp">
-                                Application Form For MBBS Student
-                            </a>
-                        </td>
-                        <td>
-                            <a class="fs-3 btn btn-success" href="./assets/images/form/job-application-form-template-600x776.jpg" role="button">
-                                View
-                            </a>
-                        </td>
-                        <td>
-                            <a class="fs-1" href="./assets/images/form/job-application-form-template-600x776.jpg" role="button" download>
-                                <i class="ri-download-2-line"></i>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>01</td>
-                        <td>
-                            <a target="_blank" href="./assets/circuler/image.webp">
-                                Application Form For MBBS Student
-                            </a>
-                        </td>
-                        <td>
-                            <a class="fs-3 btn btn-success" href="./assets/images/form/job-application-form-template-600x776.jpg" role="button">
-                                View
-                            </a>
-                        </td>
-                        <td>
-                            <a class="fs-1" href="./assets/images/form/job-application-form-template-600x776.jpg" role="button" download>
-                                <i class="ri-download-2-line"></i>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>01</td>
-                        <td>
-                            <a target="_blank" href="./assets/circuler/image.webp">
-                                Application Form For MBBS Student
-                            </a>
-                        </td>
-                        <td>
-                            <a class="fs-3 btn btn-success" href="./assets/images/form/job-application-form-template-600x776.jpg" role="button">
-                                View
-                            </a>
-                        </td>
-                        <td>
-                            <a class="fs-1" href="./assets/images/form/job-application-form-template-600x776.jpg" role="button" download>
-                                <i class="ri-download-2-line"></i>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>01</td>
-                        <td>
-                            <a target="_blank" href="./assets/circuler/image.webp">
-                                Application Form For MBBS Student
-                            </a>
-                        </td>
-                        <td>
-                            <a class="fs-3 btn btn-success" href="./assets/images/form/job-application-form-template-600x776.jpg" role="button">
-                                View
-                            </a>
-                        </td>
-                        <td>
-                            <a class="fs-1" href="./assets/images/form/job-application-form-template-600x776.jpg" role="button" download>
-                                <i class="ri-download-2-line"></i>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>01</td>
-                        <td>
-                            <a target="_blank" href="./assets/circuler/image.webp">
-                                Application Form For MBBS Student
-                            </a>
-                        </td>
-                        <td>
-                            <a class="fs-3 btn btn-success" href="./assets/images/form/job-application-form-template-600x776.jpg" role="button">
-                                View
-                            </a>
-                        </td>
-                        <td>
-                            <a class="fs-1" href="./assets/images/form/job-application-form-template-600x776.jpg" role="button" download>
-                                <i class="ri-download-2-line"></i>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>01</td>
-                        <td>
-                            <a target="_blank" href="./assets/circuler/image.webp">
-                                Application Form For MBBS Student
-                            </a>
-                        </td>
-                        <td>
-                            <a class="fs-3 btn btn-success" href="./assets/images/form/job-application-form-template-600x776.jpg" role="button">
-                                View
-                            </a>
-                        </td>
-                        <td>
-                            <a class="fs-1" href="./assets/images/form/job-application-form-template-600x776.jpg" role="button" download>
-                                <i class="ri-download-2-line"></i>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>01</td>
-                        <td>
-                            <a target="_blank" href="./assets/circuler/image.webp">
-                                Application Form For MBBS Student
-                            </a>
-                        </td>
-                        <td>
-                            <a class="fs-3 btn btn-success" href="./assets/images/form/job-application-form-template-600x776.jpg" role="button">
-                                View
-                            </a>
-                        </td>
-                        <td>
-                            <a class="fs-1" href="./assets/images/form/job-application-form-template-600x776.jpg" role="button" download>
-                                <i class="ri-download-2-line"></i>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>01</td>
-                        <td>
-                            <a target="_blank" href="./assets/circuler/image.webp">
-                                Application Form For MBBS Student
-                            </a>
-                        </td>
-                        <td>
-                            <a class="fs-3 btn btn-success" href="./assets/images/form/job-application-form-template-600x776.jpg" role="button">
-                                View
-                            </a>
-                        </td>
-                        <td>
-                            <a class="fs-1" href="./assets/images/form/job-application-form-template-600x776.jpg" role="button" download>
-                                <i class="ri-download-2-line"></i>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>01</td>
-                        <td>
-                            <a target="_blank" href="./assets/circuler/image.webp">
-                                Application Form For MBBS Student
-                            </a>
-                        </td>
-                        <td>
-                            <a class="fs-3 btn btn-success" href="./assets/images/form/job-application-form-template-600x776.jpg" role="button">
-                                View
-                            </a>
-                        </td>
-                        <td>
-                            <a class="fs-1" href="./assets/images/form/job-application-form-template-600x776.jpg" role="button" download>
-                                <i class="ri-download-2-line"></i>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>01</td>
-                        <td>
-                            <a target="_blank" href="./assets/circuler/image.webp">
-                                Application Form For MBBS Student
-                            </a>
-                        </td>
-                        <td>
-                            <a class="fs-3 btn btn-success" href="./assets/images/form/job-application-form-template-600x776.jpg" role="button">
-                                View
-                            </a>
-                        </td>
-                        <td>
-                            <a class="fs-1" href="./assets/images/form/job-application-form-template-600x776.jpg" role="button" download>
-                                <i class="ri-download-2-line"></i>
-                            </a>
-                        </td>
-                    </tr>
+                    @endforeach
                 </tbody>
               </table>
+              {{$datas->links()}}
             </div>
           </div>
 @endsection

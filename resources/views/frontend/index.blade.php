@@ -46,7 +46,7 @@
                         // reomove html tag
                         $notice_text = strip_tags($notice->notice_text);
                     @endphp
-                    <a href="/frontNotice">{{ $notice_text }} |</a>
+                    <a href="frontNotice">{{ $notice_text }} |</a>
                 @endforeach
             </div>
             <!--=====================================-->
@@ -55,96 +55,43 @@
             <!--=====================================-->
             <!--=       Hero Banner Area Start      =-->
             <!--=====================================-->
+            @php
+                use App\Models\HomeBanner;
+                $datas = HomeBanner::all();
+            @endphp
+
             <div class="hero-banner hero-style-3 bg-image">
                 <div class="swiper university-activator">
                     <div class="swiper-wrapper">
-                        <div class="swiper-slide">
-                            <img data-transform-origin="center center" data-src="assets/images/bg/bg2.jpg"
-                                class="swiper-lazy" alt="image" />
-                            <div class="thumbnail-bg-content">
-                                <div class="container SHMU-animated-shape">
-                                    <div class="row">
-                                        <div class="col-7">
-                                            <div class="banner-content">
-                                                <span class="subtitle" data-sal="slide-up" data-sal-duration="1000">Welcome
-                                                    to shmu</span>
-                                                <h1 class="title" data-sal-delay="100" data-sal="slide-up"
-                                                    data-sal-duration="1000">
-                                                    shmu Medical University
-                                                </h1>
-                                                <p data-sal-delay="200" data-sal="slide-up" data-sal-duration="1000">
-                                                    Excepteur sint occaecat cupidatat non proident sunt in
-                                                    culpa qui officia deserunt mollit.
-                                                </p>
-                                                <div class="banner-btn" data-sal-delay="400" data-sal="slide-up"
-                                                    data-sal-duration="1000">
-                                                    <a href="#" class="edu-btn btn-secondary">Find courses <i
-                                                            class="icon-4"></i></a>
+                        @foreach ($datas as $data)
+                            <div class="swiper-slide">
+                                <img data-transform-origin="center center" data-src="{{$data->img}}"
+                                    class="swiper-lazy" alt="image" />
+                                <div class="thumbnail-bg-content">
+                                    <div class="container SHMU-animated-shape">
+                                        <div class="row">
+                                            <div class="col-7">
+                                                <div class="banner-content">
+                                                    <span class="subtitle" data-sal="slide-up" data-sal-duration="1000">{{$data->welcome_title}}</span>
+                                                    <h1 class="title" data-sal-delay="100" data-sal="slide-up"
+                                                        data-sal-duration="1000">
+                                                        {{$data->title}}
+                                                    </h1>
+                                                    <p data-sal-delay="200" data-sal="slide-up" data-sal-duration="1000">
+                                                        {{$data->text}}
+                                                    </p>
+                                                    <div class="banner-btn" data-sal-delay="400" data-sal="slide-up"
+                                                        data-sal-duration="1000">
+                                                        <a href="program-all" class="edu-btn btn-secondary">Find courses <i
+                                                                class="icon-4"></i></a>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <img data-transform-origin="center center" data-src={{ url('assets/images/bg/bg1.jpg') }}
-                                class="swiper-lazy" alt="image" />
-                            <div class="thumbnail-bg-content">
-                                <div class="container SHMU-animated-shape">
-                                    <div class="row">
-                                        <div class="col-7">
-                                            <div class="banner-content">
-                                                <span class="subtitle" data-sal="slide-up" data-sal-duration="1000">Welcome
-                                                    to shmu</span>
-                                                <h1 class="title" data-sal-delay="100" data-sal="slide-up"
-                                                    data-sal-duration="1000">
-                                                    Research of Shmu
-                                                </h1>
-                                                <p data-sal-delay="200" data-sal="slide-up" data-sal-duration="1000">
-                                                    Excepteur sint occaecat cupidatat non proident sunt in
-                                                    culpa qui officia deserunt mollit.
-                                                </p>
-                                                <div class="banner-btn" data-sal-delay="400" data-sal="slide-up"
-                                                    data-sal-duration="1000">
-                                                    <a href="#" class="edu-btn btn-secondary">Find courses <i
-                                                            class="icon-4"></i></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <img data-transform-origin="center center" data-src="assets/images/bg/bg3.jpg"
-                                class="swiper-lazy" alt="image" />
-                            <div class="thumbnail-bg-content">
-                                <div class="container SHMU-animated-shape">
-                                    <div class="row">
-                                        <div class="col-7">
-                                            <div class="banner-content">
-                                                <span class="subtitle" data-sal="slide-up" data-sal-duration="1000">Welcome
-                                                    to SHMU</span>
-                                                <h1 class="title" data-sal-delay="100" data-sal="slide-up"
-                                                    data-sal-duration="1000">
-                                                    World Best Program Best University
-                                                </h1>
-                                                <p data-sal-delay="200" data-sal="slide-up" data-sal-duration="1000">
-                                                    Excepteur sint occaecat cupidatat non proident sunt in
-                                                    culpa qui officia deserunt mollit.
-                                                </p>
-                                                <div class="banner-btn" data-sal-delay="400" data-sal="slide-up"
-                                                    data-sal-duration="1000">
-                                                    <a href="#" class="edu-btn btn-secondary">Find courses <i
-                                                            class="icon-4"></i></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                     <div class="hero-slider-bg-controls">
                         <div class="swiper-slide-controls slide-prev">
@@ -189,7 +136,7 @@
                                 <div class="content-img">
                                     @php
                                         if ($img) {
-                                            $imgSrc = asset('storage/eventImage/' . $img->e_img);
+                                            $imgSrc = $img->e_img;
 
                                             // Display the image
                                             echo "<img src=\"$imgSrc\" alt=\"Blog Images\">";
@@ -205,14 +152,14 @@
                                             <span>{{ $day }}<span
                                                     class="d-block">{{ $month . ',' . $year }}</span></span>
                                         </p>
-                                        <a class="limited" href="event1.html">{{ $event->event_title }}</a>
+                                        <a class="limited" href="event">{{ $event->event_title }}</a>
                                     </h6>
                                 </div>
                             </div>
                         @endforeach
 
 
-                        <a href="event.html">
+                        <a href="event">
                             <div class="right-arrow-event">
                                 <i class="ri-arrow-right-s-line"></i>
                             </div>
@@ -227,20 +174,7 @@
             <div class="edu-about-area about-style-3 pb-1">
                 <div class="container">
                     <div class="row g-5 align-items-center">
-                        <!-- <div class="col-lg-6" data-sal-delay="50" data-sal="slide-up" data-sal-duration="800">
-                                                        <div class="about-content">
-                                                            <div class="section-title section-left">
-                                                                <span class="pre-title">About Us</span>
-                                                                <h2 class="title">We Provide Best <span class="color-primary">Education</span> Services For You</h2>
-                                                                <span class="shape-line"><i class="icon-19"></i></span>
-                                                                <p>Sheikh Hasina Medical University, (Common known as Khulna Medical University) is a Government Medical University situated in Khulna, Bangladesh. It has been established for the supervisors of all medical colleges and nursing colleges of Khulna division.
-
-                                                                    The Prime Minister's Office (PMO) approved the proposal of establishing Sheikh Hasina Medical University in Khulna.
-                                                                    
-                                                                    Sheikh Hasina Medical University, established in Khulna division to supervise whether these public and private medical institutions will be functioning properly. In this, Sheikh Hasina Medical University will be responsible for the medical and dental colleges, nursing colleges, institute of health technology (IHT), medical education institutes.</p>
-                                                            </div>
-                                                        </div>
-                                                    </div> -->
+                        
                         <div class="col-lg-8 col-md-6">
                             <!-- About us start -->
 
@@ -248,42 +182,24 @@
                                 <div class="container">
                                     <div class="about-message-content row-diseable align-items-center"
                                         data-sal-delay="150" data-sal="slide-up" data-sal-duration="800">
-                                        <!-- <div class="col-md-5 py-5">
-                                                      <div class="building-banner">
-                                                        <img
-                                                          class="img-fluid"
-                                                          src="./assets/images/about/sheikh-hasina-medical.webp"
-                                                          alt="building"
-                                                        />
-                                                      </div>
-                                                    </div> -->
+                                        
+
+                                @php
+                                    use App\Models\AboutUs;
+                                    $data = AboutUs::first();
+                                @endphp
                                         <div class="col-md-7-diseable">
                                             <div class="about-content">
                                                 <div class="section-title section-left">
                                                     <!--  <span class="pre-title">About Us</span> -->
                                                     <h2 class="title">
-                                                        We Provide Best
-                                                        <span class="color-primary">Education</span>
-                                                        Services For You
+                                                        {{$data->title}}
                                                     </h2>
                                                     <span class="shape-line"><i class="icon-19"></i></span>
-                                                    <p class="text-justify">
-                                                        Sheikh Hasina Medical University, (Common known as
-                                                        Khulna Medical University) is a Government Medical
-                                                        University situated in Khulna, Bangladesh. It has
-                                                        been established for the supervisors of all medical
-                                                        colleges and nursing colleges of Khulna division.
-                                                        The Prime Minister's Office (PMO) approved the
-                                                        proposal of establishing Sheikh Hasina Medical
-                                                        University in Khulna. Sheikh Hasina Medical
-                                                        University, established in Khulna division to
-                                                        supervise whether these public and private medical
-                                                        institutions will be functioning properly. In this,
-                                                        Sheikh Hasina Medical University will be responsible
-                                                        for the medical and dental colleges, nursing
-                                                        colleges, institute of health technology (IHT),
-                                                        medical education institutes.
-                                                    </p>
+                                                    <div class="text-justify"> 
+                                                        {!!$data->text!!}
+                                                    </div>
+                                                    
                                                 </div>
                                             </div>
                                         </div>
@@ -291,190 +207,7 @@
                                 </div>
                             </div>
                             <!-- about us and message from vc end -->
-                            <!-- <div class="about-image-gallery">
-                                                <img
-                                                  class="main-img-1"
-                                                  data-sal-delay="100"
-                                                  data-sal="slide-up"
-                                                  data-sal-duration="800"
-                                                  src="assets/images/about/mujib_logo.png"
-                                                  alt="About Image"
-                                                />
-                                                <ul class="shape-group">
-                                                  <li
-                                                    class="shape-1 scene"
-                                                    data-sal-delay="500"
-                                                    data-sal="fade"
-                                                    data-sal-duration="200"
-                                                  >
-                                                    <img
-                                                      data-depth="2"
-                                                      src="assets/images/about/shape-13.png"
-                                                      alt="Shape"
-                                                    />
-                                                  </li>
-                                                  <li
-                                                    class="shape-2 scene"
-                                                    data-sal-delay="500"
-                                                    data-sal="fade"
-                                                    data-sal-duration="200"
-                                                  >
-                                                    <img
-                                                      data-depth="-2"
-                                                      src="assets/images/about/shape-39.png"
-                                                      alt="Shape"
-                                                    />
-                                                  </li>
-                                                  <li
-                                                    class="shape-3 scene"
-                                                    data-sal-delay="500"
-                                                    data-sal="fade"
-                                                    data-sal-duration="200"
-                                                  >
-                                                    <img
-                                                      data-depth="2"
-                                                      src="assets/images/about/shape-07.png"
-                                                      alt="Shape"
-                                                    />
-                                                  </li>
-                                                  <li
-                                                    class="shape-4"
-                                                    data-sal-delay="500"
-                                                    data-sal="fade"
-                                                    data-sal-duration="200"
-                                                  >
-                                                    <span></span>
-                                                  </li>
-                                                </ul>
-                                              </div> -->
-                            <!-- <div
-                                                class="section-title section-center"
-                                                data-sal-delay="150"
-                                                data-sal="slide-up"
-                                                data-sal-duration="800"
-                                              >
-                                                <span class="pre-title">Events & News</span>
-                                                <h2 class="title">Events & News</h2>
-                                                <span class="shape-line"><i class="icon-19"></i></span>
-                                              </div> -->
-                            <!-- <div class="row g-5"> -->
-                            <!-- Start Event Grid  -->
-                            <!-- <div
-                                                  class="col-lg-6"
-                                                  data-sal-delay="100"
-                                                  data-sal="slide-up"
-                                                  data-sal-duration="800"
-                                                >
-                                                  <div class="edu-event event-style-1">
-                                                    <div class="inner">
-                                                      <div class="thumbnail">
-                                                        <a href="event-details.html">
-                                                          <img
-                                                            src="assets/images/event/rsz_1rsz_260220231-1.jpg"
-                                                            alt="Blog Images"
-                                                          />
-                                                        </a>
-                                                        <div class="event-time">
-                                                          <span><i class="icon-33"></i>08:00AM-10:00PM</span>
-                                                        </div>
-                                                      </div>
-                                                      <div class="content">
-                                                        <div class="event-date">
-                                                          <span class="day">30</span>
-                                                          <span class="month">SEP</span>
-                                                        </div>
-                                                        <h5 class="title">
-                                                          <a href="event1.html">
-                                                            মহান স্বাধীনতা দিবসে স্মৃতিসৌধে শ্রদ্ধা নিবেদন করেন
-                                                            উপাচার্য মহোদয় এবং বিশ্ববিদ্যালয়ের কর্মকর্তা ও
-                                                            কর্মচারীগন</a
-                                                          >
-                                                        </h5>
-                                                        <p>
-                                                          Lorem ipsum dolor sit amet consectur elit sed eiusmod
-                                                          ex tempor incididunt labore dolore magna.
-                                                        </p>
-                                                        <ul class="event-meta">
-                                                          <li><i class="icon-40"></i>Khulna, Bangladesh</li>
-                                                        </ul>
-                                                        <div class="read-more-btn">
-                                                          <a
-                                                            class="edu-btn btn-small btn-secondary"
-                                                            href="event1.html"
-                                                            >Learn More <i class="icon-4"></i
-                                                          ></a>
-                                                        </div>
-                                                      </div>
-                                                    </div>
-                                                  </div>
-                                                </div> -->
-                            <!-- End Event Grid  -->
-                            <!-- Start Event Grid  -->
-                            <!-- <div
-                                                  class="col-lg-6"
-                                                  data-sal-delay="200"
-                                                  data-sal="slide-up"
-                                                  data-sal-duration="800"
-                                                >
-                                                  <div class="edu-event event-style-1">
-                                                    <div class="inner">
-                                                      <div class="thumbnail">
-                                                        <a href="event-details.html">
-                                                          <img
-                                                            src="assets/images/event/event-02.jpg"
-                                                            alt="Blog Images"
-                                                          />
-                                                        </a>
-                                                        <div class="event-time">
-                                                          <span><i class="icon-33"></i>04:00PM-07:00PM</span>
-                                                        </div>
-                                                      </div>
-                                                      <div class="content">
-                                                        <div class="event-date">
-                                                          <span class="day">25</span>
-                                                          <span class="month">DEC</span>
-                                                        </div>
-                                                        <h5 class="title">
-                                                          <a href="event-details.html"
-                                                            >জাতির পিতা বঙ্গবন্ধু শেখ মুজিবুর রহমান এঁর ১০৩ তম
-                                                            জন্মদিবস উপলক্ষে বঙ্গবন্ধুর প্রতিকৃতিতে পুষ্পস্তবক
-                                                            প্রদান করে শ্রদ্ধা নিবেদন করেন উপাচার্য মহোদয় ও
-                                                            শেহামেবি কর্মকর্তাবৃন্দ</a
-                                                          >
-                                                        </h5>
-                                                        <p>
-                                                          Lorem ipsum dolor sit amet consectur elit sed eiusmod
-                                                          ex tempor incididunt labore dolore magna.
-                                                        </p>
-                                                        <ul class="event-meta">
-                                                          <li><i class="icon-40"></i>Khulna, Bangladesh</li>
-                                                        </ul>
-                                                        <div class="read-more-btn">
-                                                          <a
-                                                            class="edu-btn btn-small btn-secondary"
-                                                            href="event-details.html"
-                                                            >Learn More <i class="icon-4"></i
-                                                          ></a>
-                                                        </div>
-                                                      </div>
-                                                    </div>
-                                                  </div>
-                                                </div> -->
-                            <!-- End Event Grid  -->
-                            <!-- </div>
-                                              <div
-                                                class="event-view-all-btn"
-                                                data-sal-delay="150"
-                                                data-sal="slide-up"
-                                                data-sal-duration="1200"
-                                              >
-                                                <h6 class="view-text">
-                                                  The Latest Events from SHMU.
-                                                  <a href="event-grid.html" class="btn-transparent"
-                                                    >View All <i class="icon-4"></i
-                                                  ></a>
-                                                </h6>
-                                              </div> -->
+                            
                         </div>
                         <!-- notice start here -->
 
@@ -684,7 +417,7 @@
                                               </table> -->
                             <div class="w-100 my-3 d-flex justify-content-between align-items-center">
                                 <div>
-                                    <a href="/frontNotice" type="button" class="btn btn-success btn-lg">Archive</a>
+                                    <a href="frontNotice" type="button" class="btn btn-success btn-lg">Archive</a>
                                 </div>
                                 <div>
                                     <div>
@@ -756,28 +489,13 @@
                     <div class="col-md-9">
                         <div class="director-message">
                             <h3>Massage from vice chancellor</h3>
-                            <p class="mb-3">
-                                Dear University Community,<br>
-                                Welcome! As Vice Chancellor, I lead our pursuit of knowledge and
-                                excellence. Our university is an innovation hub, fostering
-                                growth and curiosity. Whether you're a student, faculty, or
-                                staff member, you're vital to our vision. Embrace collaboration
-                                and continuous learning. Together, let's build a vibrant,
-                                diverse community. Engage in activities, explore new realms, and
-                                contribute to our collective growth. Your unique perspectives
-                                drive our success. Thank you for being part of our family. Let's
-                                embark on this journey committed to excellence and innovation.
-                                Best wishes,
-                            </p>
-                            <p class="m-0">
-                                Vice Chancellor <br>
-                                Sheikh Hasina Medical University
-                            </p>
+                            
+                            {!!$data->message!!}
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="director-img">
-                            <img class="director-img-full" src="{{ asset('storage/chancellorImg/' . $data->img) }}"
+                            <img class="director-img-full" src="{{$data->img}}"
                                 alt="building" />
                             <div class="director-img-caption">
                                 <p class="mb-0">{{$data->name}}</p>
@@ -791,6 +509,13 @@
             <!--=       	APA Area Start      =-->
             <!--=====================================-->
 
+            @php
+                use App\Models\APA;
+                use App\Models\ApaName;
+
+                $apa_names = ApaName::all();
+            @endphp
+
             <div class="apa-section bg-gradient-down">
                 <div class="container">
                     <div class="section-content-apa">
@@ -800,205 +525,37 @@
                             <span class="shape-line"><i class="icon-19"></i></span>
                         </div>
                         <div class="row">
+                        @foreach ($apa_names as $apa_name)
+
                             <div class="col-lg-4 apa-card">
                                 <div class="card">
                                     <div class="card-body">
                                         <h6 class="card-title">
-                                            <strong>Annual Performance Agreement</strong>
+                                            <strong>{{$apa_name->name}}</strong>
                                         </h6>
                                         <!-- <p class="card-text"></p> -->
                                         <div class="row">
                                             <div class="col-sm-4">
-                                                <img src="./assets/images/apa/apa_cab.webp" alt="logo"
+                                                <img src="{{$apa_name->img}}" alt="logo"
                                                     width="110" />
                                             </div>
                                             <div class="col-sm-8">
                                                 <ul>
-                                                    <li>
-                                                        <a href="apa.html">Annual Performance Agreement</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="apa.html">1st Quarterly Report</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="apa.html">2nd Quarterly Report</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="apa.html">Mid-Term Evaluation</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="apa.html">সংজোযনী-৪ জাতীয় শুদ্ধাচার কর্মপরিকল্পনা</a>
-                                                    </li>
+                                                @php
+                                                    $apas = APA::where('apa_name_id',$apa_name->id)->get();
+                                                @endphp
+                                                  @foreach ($apas as $apa)
+                                                  <li>
+                                                      <a href="{{$apa->links}}">{{$apa->headline}}</a>
+                                                  </li>
+                                                  @endforeach
                                                 </ul>
                                             </div>
                                         </div>
-                                        <p></p>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-4 apa-card">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h6 class="card-title">
-                                            <strong>National Integrity Strategy</strong>
-                                        </h6>
-                                        <!-- <p class="card-text"></p> -->
-                                        <div class="row">
-                                            <div class="col-sm-4">
-                                                <img src="./assets/images/apa/nis_logo.webp" alt="logo"
-                                                    width="110" />
-                                            </div>
-                                            <div class="col-sm-8">
-                                                <ul>
-                                                    <li>
-                                                        <a href="apa.html">National Integrity Strategy Report 2021-2022-2nd
-                                                            Quarter</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="apa.html">National Integrity Strategy of Bangladesh</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="apa.html">NIS Committee Formation Instruction</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <p></p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 apa-card">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h6 class="card-title">
-                                            <strong>E-Governance and Innovation Activities</strong>
-                                        </h6>
-                                        <!-- <p class="card-text"></p> -->
-                                        <div class="row">
-                                            <div class="col-sm-4">
-                                                <img src="./assets/images/apa/INNOVATION.webp" alt="logo"
-                                                    width="110" />
-                                            </div>
-                                            <div class="col-sm-8">
-                                                <ul>
-                                                    <li>
-                                                        <a href="apa.html">E-Governance and Innovation Instructions and
-                                                            Work
-                                                            Plan 2021-2022</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="apa.html">E-filling training program schedule</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="apa.html">Course Registration System</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="apa.html">Social Communication Network</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <p></p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 apa-card">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h6 class="card-title">
-                                            <strong>Right to Information</strong>
-                                        </h6>
-                                        <!-- <p class="card-text"></p> -->
-                                        <div class="row">
-                                            <div class="col-sm-4">
-                                                <img src="./assets/images/apa/infocom.webp" alt="logo"
-                                                    width="110" />
-                                            </div>
-                                            <div class="col-sm-8">
-                                                <ul>
-                                                    <li>
-                                                        <a href="apa.html">Information Preservation Rules</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="apa.html">Request for information form</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="apa.html">Right to Information Act 2009</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="apa.html">RTI Information Demand Form</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <p></p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 apa-card">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h6 class="card-title">
-                                            <strong>Grievance Redress System</strong>
-                                        </h6>
-                                        <!-- <p class="card-text"></p> -->
-                                        <div class="row">
-                                            <div class="col-sm-4">
-                                                <img src="./assets/images/apa/complain.webp" alt="logo"
-                                                    width="110" />
-                                            </div>
-                                            <div class="col-sm-8">
-                                                <ul>
-                                                    <li>
-                                                        <a href="apa.html">Grievance Redress System Guidelines 2015</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="apa.html">GRS Instructions and Work Plan 2021-2022</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="apa.html">GRS Online Complain Instructions</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <p></p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 apa-card">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h6 class="card-title"><strong>Citizen Charter</strong></h6>
-                                        <!-- <p class="card-text"></p> -->
-                                        <div class="row">
-                                            <div class="col-sm-4">
-                                                <img src="./assets/images/apa/Citizens.webp" alt="logo"
-                                                    width="110" />
-                                            </div>
-                                            <div class="col-sm-8">
-                                                <ul>
-                                                    <li>
-                                                        <a href="apa.html">সেবা প্রদান প্রতিশ্রুতি </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="apa.html">ফোকাল পয়েন্ট কর্মকর্তা/পরিবীক্ষণ কমিটি
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="apa.html">ত্রৈমাসিক/বার্ষিক পরিবীক্ষণ/মূল্যায়ন প্রতিবেদন
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="apa.html">আইন/বিধি/নীতিমালা/পরিপত্র/নির্দেশিকা/
-                                                            প্রজ্ঞাপন</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <p></p>
-                                    </div>
-                                </div>
-                            </div>
+                        @endforeach
                         </div>
                     </div>
                 </div>
@@ -1007,44 +564,7 @@
             <!--=====================================-->
             <!--=       CounterUp Area Start      	=-->
             <!--=====================================-->
-            <!--<div class="counterup-area-1 gap-lg-bottom-equal">
-                                            <div class="container">
-                                                <div class="row g-5">
-                                                    <div class="col-lg-3 col-sm-6" data-sal-delay="50" data-sal="slide-up" data-sal-duration="800">
-                                                        <div class="edu-counterup counterup-style-1">
-                                                            <h2 class="counter-item count-number primary-color">
-                                                                <span class="odometer" data-odometer-final="29.3">.</span><span>K</span>
-                                                            </h2>
-                                                            <h6 class="title">STUDENT ENROLLED</h6>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-3 col-sm-6" data-sal-delay="100" data-sal="slide-up" data-sal-duration="800">
-                                                        <div class="edu-counterup counterup-style-1">
-                                                            <h2 class="counter-item count-number secondary-color">
-                                                                <span class="odometer" data-odometer-final="32.4">.</span><span>K</span>
-                                                            </h2>
-                                                            <h6 class="title">Class Completed</h6>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-3 col-sm-6" data-sal-delay="150" data-sal="slide-up" data-sal-duration="800">
-                                                        <div class="edu-counterup counterup-style-1">
-                                                            <h2 class="counter-item count-number extra02-color">
-                                                                <span class="odometer" data-odometer-final="100">.</span><span>%</span>
-                                                            </h2>
-                                                            <h6 class="title">Satisfaction Rate</h6>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-3 col-sm-6" data-sal-delay="200" data-sal="slide-up" data-sal-duration="800">
-                                                        <div class="edu-counterup counterup-style-1">
-                                                            <h2 class="counter-item count-number extra05-color">
-                                                                <span class="odometer" data-odometer-final="354">.</span><span>+</span>
-                                                            </h2>
-                                                            <h6 class="title">Top Instructors</h6>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>-->
+            
             <!--=====================================-->
             <!--=      Affiliat collage Area Start	=-->
             <!--=====================================-->
@@ -1067,7 +587,7 @@
                         @foreach ($institutes as $institute)
                             <div class="brand-grid">
                                 <a href="{{ $institute->web_link }}" target="_blank">
-                                    <img src="{{ asset('storage/instituteCode/' . $institute->ins_logo) }}"
+                                    <img src="{{$institute->ins_logo}}"
                                         alt="Brand Logo" />
                                 </a>
                             </div>
@@ -1080,6 +600,10 @@
             <!--=       	Campus Area Start      =-->
             <!--=====================================-->
             <!-- Start Campus Area  -->
+            @php
+                use App\Models\CampusLife;
+                $data = CampusLife::first();
+            @endphp
             <div class="edu-campus-area py-5">
                 <div class="container SHMU-animated-shape pb-5">
                     <div class="row g-5">
@@ -1087,7 +611,7 @@
                             <div class="campus-image-gallery">
                                 <div class="campus-thumbnail">
                                     <div class="thumbnail d-md-flex justify-content-end">
-                                        <img class="w-75" src="assets/images/others/campus-01.webp" alt="Campus" />
+                                        <img class="w-75" src="{{$data->img}}" alt="Campus" />
                                     </div>
                                 </div>
                                 <ul class="shape-group">
@@ -1183,7 +707,7 @@
                                         Get Your Quality Skills
                                         <span class="color-primary">Certificate</span> Through SHMU
                                     </h2>
-                                    <a href="contact-us.html" class="edu-btn btn-secondary">Get started now <i
+                                    <a href="program-all" class="edu-btn btn-secondary">Get started now <i
                                             class="icon-4"></i></a>
                                 </div>
                             </div>

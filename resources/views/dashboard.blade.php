@@ -9,11 +9,11 @@
             <div class="graph-chart-card">
               <div class="chart-card shadow">
                 <p>Subscriber</p>
-                <p>2235</p>
+                <p>{{$subscribers}}</p>
               </div>
               <div class="chart-card shadow">
                 <p>Total Change</p>
-                <p>53</p>
+                <p>{{$activities}}</p>
               </div>
             </div>
             <div class="graph-chart-ele">

@@ -94,7 +94,7 @@
                                     [$year, $month, $day] = explode('-', $formattedCreatedAt);
                                 @endphp
                             <li class="list-group-item">
-                                <a target="_blank" download href="storage/shmuAct/{{$act->actDoc_file}}">
+                                <a target="_blank" download href="{{$act->actDoc_file}}">
                                     <span class="d-block">{{$month.' '. $day. ','. $year}}</span>
                                     <span class="display-6">{{$act->actDoc_heading}}</span>
                                 </a>

@@ -6,14 +6,14 @@
     <!-- favicon -->
     <link
       rel="shortcut icon"
-      href={{url("admin/asset/img/favicon.png")}}
+      href={{asset("admin/asset/img/favicon.png")}}
       type="image/x-icon"
     />
-    <link rel="icon" href={{url("admin/asset/img/favicon.png")}} type="image/x-icon" />
+    <link rel="icon" href={{asset("admin/asset/img/favicon.png")}} type="image/x-icon" />
     <!-- custom css -->
-    <link rel="stylesheet" href={{url("admin/asset/css/style.css")}} />
+    <link rel="stylesheet" href={{asset("admin/asset/css/style.css")}} />
     <!-- remix icon -->
-    <link rel="stylesheet" href={{url("admin/asset/font/fonts/remixicon.css")}} />
+    <link rel="stylesheet" href={{asset("admin/asset/font/fonts/remixicon.css")}} />
     <!-- bootstrap 5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -25,32 +25,33 @@
 
      <title>SHMU Admin Panel</title>
     <!-- jquery script -->
-    <script src={{url("admin/asset/script/jquery.min.js")}}></script>
-    <!-- page inner data script -->
-    <script src={{url("admin/asset/script/page_data.js")}}></script>
+    <script src={{asset("admin/asset/script/jquery.min.js")}}></script>
   </head>
 
   <body>
     <!-- ************************* 
         navbar start here
     ****************************** -->
-
+    @php
+      use App\Models\SiteSetting;
+      $data = SiteSetting::first();
+    @endphp
     <section class="shmu-nav shadow">
       <div class="shmu-nav-section">
         <div class="side-nav">
           <aside>
             <div class="nav-header">
               <div class="nav-header-logo">
-                <img
-                  src={{url("admin/asset/img/logo/Website-Final-1-2.png")}}
-                  alt="Full Logo"
+                <a href="dashboard">
+                <img src={{$data->site_logo}} alt="Full Logo" 
                 />
+              </a>
               </div>
             </div>
             <div class="nav-menu">
               <nav>
                 <ul>
-                  <a href={{url("/dashboard")}}>
+                  <a href="dashboard">
                     <li><i class="ri-home-4-line"></i> Dashboard</li>
                   </a>
                   <a href="javascript:void(0);">
@@ -67,7 +68,7 @@
                                  
                                   <li onclick="pageInnerData('inscode')">Institute Code</li>
                                   <li onclick="pageInnerData('campusdetails')">Campus Details</li>
-                                  <li onclick="pageInnerData('campusmap')">Campus Map</li>
+                                  
                                   <li onclick="pageInnerData('mission')">Mission & Vision</li>
                                   <li onclick="pageInnerData('news&event')">News & Events</li>
                               </ul>
@@ -95,23 +96,35 @@
                               <ul class="dropdown-item">
                                   <li onclick="pageInnerData('program')">Program Offered</li>
                                   <li onclick="pageInnerData('academiccalender')">Academic Calender</li>
-                                  <li onclick="pageInnerData('affiliatedins')">Affiliated Institute</li>
+                                  {{-- <li onclick="pageInnerData('affiliatedins')">Affiliated Institute</li> --}}
                             </div>
                             <li onclick="pageInnerData('notice')">Notice</li>
                             <li onclick="pageInnerData('events&gallery')">Events & Gallery</li>
+
                             <li class="hasDropdown">Quick Links</li>
+                            <div class="dropdown-menu-list">
+                              <ul class="dropdown-item">
+                                  <li onclick="pageInnerData('noc')">NOC</li>
+                                  <li onclick="pageInnerData('apa')">APA</li>
+                                  <li onclick="pageInnerData('tender')">Tender</li>
+                                  <li onclick="pageInnerData('circuler')">Circuler</li>
+                                  <li onclick="pageInnerData('forms')">Forms</li>
+                            </div>
                         </ul>
                       </div>
                   </a>
-                  <a href='/activities'>
+                  <a href='activities'>
                     <li><i class="ri-history-line"></i> Activities</li>
                   </a>
-                  <a href='/subscriber'>
+                  <a href='subscriber'>
                     <li><i class="ri-folder-user-line"></i> Subscriber</li>
                   </a>
-                  <a href='/report'>
-                    <li><i class="ri-alarm-warning-line"></i> Report</li>
+                  <a href='side-setting'>
+                    <li><i class="ri-settings-4-fill"></i> Site Setting</li>
                   </a>
+                  {{-- <a href='/report'>
+                    <li><i class="ri-alarm-warning-line"></i> Report</li>
+                  </a> --}}
                 </ul>
               </nav>
             </div>
@@ -145,34 +158,59 @@
           </div>
           <div class="header-feature">
             <div class="header-feature-ele">
-              <i class="ri-mail-fill" title="Subscriber"></i>
+              <a href="/subscriber" style="color: white;text-decoration: none">
+                <i class="ri-mail-fill" title="Subscriber"></i>
+              </a>
             </div>
             <div class="header-feature-ele">
-              <i class="ri-folder-chart-fill" title="Activities"></i>
+              <a href="/activities" style="color: white;text-decoration: none"><i class="ri-folder-chart-fill" title="Activities"></i></a>
+              
             </div>
             <div class="header-feature-ele">
               <div class="admin-section">
-                <div class="admin-img">
-                  <img src={{url("admin/asset/img/favicon.png")}} alt="admin" loading="lazy">
-                </div>
+                
                 {{-- <div class="admin-name">
                   <p class="username"><a href="{{route('logout')}}">Mr. Admin Sir</a></p>
                   <p class="userpost">Admin</p>
                 </div> --}}
-                <form method="POST" action="{{ route('logout') }}">
-                  @csrf
-                  {{auth()->user()->name}} <br>
-                  <x-dropdown-link :href="route('logout')"
-                          style="text-decoration: none"
-                          onclick="event.preventDefault(); this.closest('form').submit();">
-                      {{-- {{ __('Logout') }} --}}
-                      <span class="text-white" >Log Out</span>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-right text-white" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0z"/>
-                        <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z"/>
-                      </svg>
-                  </x-dropdown-link>
-              </form>
+                <div class="profile mx-1" style="position: relative;min-width: 200px;">
+                  <div class="d-flex" id="profile">
+                    <div class="admin-img">
+                      {{-- <img src="{{asset('admin/asset/img/avatar.png')}}" alt=""> --}}
+                      {{-- <img src="{{asset('admin/asset/img/avatar.webp')}}" alt="img" > --}}
+                    </div>
+                    <div class="user">
+                      <span>{{auth()->user()->name}}</span>
+                    </div>
+                  </div>
+                  
+
+                  <div  class="dropdown" style="background:white; padding: 10px;
+                  border-radius: 5px; position:absolute; margin-top: 10px;display: none " >
+                    <ul class="m-0 p-0 fs-6" style="padding-left:1rem">
+                    @if (auth()->user()->role == 1)
+                      <a href="{{route('add.user')}}"  style="color: black; text-decoration: none;"><li style="list-style: none; padding-bottom: 10px;"><i class="ri-user-add-line fs-6"></i>Create User</li></a>
+
+                      <a href="{{route('manage.user')}}" style="color: black; text-decoration: none;"><li style="list-style: none; padding-bottom: 10px; display:flex"><i class="ri-user-line fs-6"></i>Manage User</li></a>
+                    @endif
+                    @if (auth()->user()->role == 2)
+                      <a href="{{route('change.password')}}" style="color: black; text-decoration: none;"><li style="list-style: none; padding-bottom: 10px; display:flex"><i class="ri-key-line fs-6"></i>Change Password</li></a>
+                    @endif
+                      <li>
+                          <form action="{{route('logout')}}" method="post">
+                            @csrf
+                            
+                            <i class="ri-logout-circle-line fs-6 text-black"></i><input onclick="return confirm('Log Out')" type="submit" value="Log Out" style="border: none; background: white;"></input>
+                          </form>
+                      </li>
+
+
+
+                      {{-- <a href="" style="color: black; text-decoration: none;"><li style="list-style: none; padding-bottom: 10px;"><i class="ri-logout-circle-line fs-6"></i>Log Out</li></a> --}}
+                    </ul>
+                  </div>
+                </div>
+                
 
               </div>
             </div>
@@ -188,3 +226,26 @@
         Main start here
     ****************************** -->
     <main>
+
+<script>
+  $(document).ready(function(){
+    var dropdown = $('.dropdown');
+
+    $('#profile').on('click', function(event){
+        event.stopPropagation();
+        dropdown.toggle('fast');
+    });
+
+   
+    $(window).on('click', function(){
+        if (dropdown.is(':visible')) {
+            dropdown.hide('fast');
+        }
+    });
+
+   
+    dropdown.on('click', function(event){
+        event.stopPropagation();
+    });
+  });
+</script>

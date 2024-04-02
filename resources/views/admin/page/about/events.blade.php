@@ -120,22 +120,25 @@
                         @endphp
                         <tr>
                             <th scope="row">{{ ($events->currentPage() - 1) * $events->perPage() + $key + 1 }}</th>
-                            <td>{{ $event->event_title }}</td>
-                            <td>{{ $event->event_text }}</td>
+                            <td class="responsiveTable">{{ $event->event_title }}</td>
+                            <td class="responsiveTable">{{ $event->event_text }}</td>
                             <td>{{ $event->location }}</td>
                             <td>{{ $event->date }}</td>
                             <td>{{ $startTime }}</td>
                             <td>{{ $endTime }}</td>
 
-                            <td class="text-center"><a href="{{route('event.img',['id'=> encrypt($event->id)])}}" >Upload Images<i class="bi bi-cloud-arrow-up"></i></a></td>
+                            <td class="text-center"><a href="{{route('event.img',['id'=> $event->id])}}" >Upload Images<i class="bi bi-cloud-arrow-up"></i></a></td>
                             
                             <td>
-                                <a href="{{ route('editEvent', ['id' => encrypt($event->id)]) }}">
+
+                            <div class="d-flex">
+                                <a class="mx-2" href="{{ route('editEvent', ['id' => encrypt($event->id)]) }}">
                                     <button class="btn btn-primary mb-2"><i class="bi bi-pencil-square"></i></button>
                                 </a>
                                 <a onclick="return confirm('Are you sure to delete this notice')" href="{{ route('delete.event', ['id' => encrypt($event->id)]) }}">
                                     <button class="btn btn-danger"><i class="bi bi-trash-fill"></i></button>
                                 </a>
+                            </div>
                             </td>
                         </tr>
                     @endforeach

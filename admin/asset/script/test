@@ -1,0 +1,64 @@
+
+//   const get_sub_months_and_count = async () => {
+//     try {
+//       let months = [];
+//       let activityCount = [];
+  
+//       const response = await fetch("/chart.sub_data");
+//       const data = await response.json();
+  
+//       data.forEach(d => {
+//         months.push(d.month);
+//         activityCount.push(d.count);
+//       });
+//       return { months, activityCount };
+//     } catch (error) {
+//       throw error;
+//     }
+    
+//   };
+
+// //line chart
+//   async function chartjs  () {
+//     const line = document.getElementById('myLineChart');
+//     let { months, activityCount} =  await get_sub_months_and_count()
+  
+//     new Chart(line, {
+//       type: 'line',
+//       data: {
+//         labels: months,
+//         datasets: [{
+//           label: 'Subscriber Chart',
+//           data:  activityCount,
+//           borderWidth: 1,
+//         }]
+//       },
+//       options: {
+//         indexAxis: 'x',
+//       }
+//     });
+
+//   }
+
+
+
+  //   line chart
+  // const line = document.getElementById('myLineChart');
+
+//   new Chart(line, {
+//     type: 'line',
+//     data: {
+//       labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jan2', 'Feb2', 'Mar2', 'Apr2', 'May2'],
+//       datasets: [{
+//         label: 'Subscriber Chart',
+//         data: [12, 19, 23, 35, 42, 12, 19, 23, 35, 42],
+//         borderWidth: 1,
+//       }]
+//     },
+//     options: {
+//       indexAxis: 'x',
+//     }
+//   });
+// }
+
+// chartjs();

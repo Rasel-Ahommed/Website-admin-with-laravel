@@ -2,11 +2,13 @@
     <!-- ************************* 
         Main End here
     ****************************** -->
-
+    
+    <!-- page inner data script -->
+    <script src={{asset("admin/asset/script/page_data.js")}}></script>
     <!-- chart script -->
-    <script src={{url("admin/asset/script/chart.js")}}></script>
+    <script src={{asset("aasset/script/chart.js")}}></script>
     <!-- user script -->
-    <script src={{url('admin/asset/script/index.js')}}></script>
+    <script src={{asset('admin/asset/script/index.js')}}></script>
     <!-- Place the first <script> tag in your HTML's <head> -->
 <script src="https://cdn.tiny.cloud/1/jwslnneqrxpa18lzjrrffgafpxv7uv7k5mejawji8xqcuf3v/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
 
@@ -109,5 +111,11 @@
       }, 5000); // 50 seconds in milliseconds
   });
 </script>
+
+
+{{-- chart js  --}}
+
+
+
   </body>
 </html>

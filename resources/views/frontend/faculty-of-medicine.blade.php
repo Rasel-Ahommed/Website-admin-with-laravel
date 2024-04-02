@@ -40,7 +40,7 @@
             <div class="col-4">
               <figure class="snip1178">
                 <img
-                  src="{{asset('storage/facultysImg/'.$data->img)}}"
+                  src="{{$data->img}}"
                   alt="sample53"
                 />
                 <!-- <div class="icons">

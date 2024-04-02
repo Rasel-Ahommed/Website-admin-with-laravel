@@ -10,13 +10,7 @@
 @section('main-contant')
 
     <body class="sticky-header">
-        <!--[if lte IE 9]>
-          <p class="browserupgrade">
-            You are using an <strong>outdated</strong> browser. Please
-            <a href="https://browsehappy.com/">upgrade your browser</a> to improve
-            your experience and security.
-          </p>
-        <![endif]-->
+       
 
         <div id="SHMU-preloader">
             <div class="loading-spinner">
@@ -46,7 +40,7 @@
                     <div class="campus-full-info">
                         <h3>CAMPUS DETAILS</h3>
                         <div class="campus-img text-center">
-                            <img class="w-25" src="{{ asset('storage/aboutImages/' . $data[0]->cam_img) }}"
+                            <img class="w-25" src="{{$data[0]->cam_img}}"
                                 alt="campus image" />
                             <p class="campus-img-caption">
                                 Sheikh Hasina Medical University Campus

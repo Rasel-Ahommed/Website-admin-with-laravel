@@ -49,7 +49,7 @@
                                 <div class="member">
                                     <div class="member-detail">
                                         <div class="member-img">
-                                            <img loading="lazy" src="{{ asset('storage/academic/' . $data->img) }}"
+                                            <img loading="lazy" src="{{$data->img}}"
                                                 alt="">
                                         </div>
                                         <div class="member-content">

@@ -1,0 +1,12 @@
+use App\Traits\ImageUploadTrait;
+
+use ImageUploadTrait;
+
+$path = $this->uploadImage($request, 'image', 'home_banner');
+$relativePath = str_replace(public_path(), '', $path);
+
+unlink($data->ins_logo);
+
+
+# delete 
+$imagePath = public_path($data->image);

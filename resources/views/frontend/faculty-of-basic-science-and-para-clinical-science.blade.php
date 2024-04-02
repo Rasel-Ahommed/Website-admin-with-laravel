@@ -36,9 +36,7 @@
               <div class="row align-items-center">
                 <div class="col-4">
                   <figure class="snip1178">
-                    <img
-                      src="{{asset('storage/deanImg/'.$data->img)}}"
-                      alt="sample53"
+                    <img src="{{$data->img}}" alt="sample53"
                     />
                     <!-- <div class="icons">
                       <a href="#"><i class="ri-phone-line"></i></a>

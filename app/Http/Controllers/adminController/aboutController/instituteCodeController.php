@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers\adminController\aboutController;
 
+use App\Models\Activities;
 use Illuminate\Http\Request;
 use App\Models\InstituteCode;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
+use App\Traits\ImageUploadTrait;
 
 class instituteCodeController extends Controller
 {
+    use ImageUploadTrait;
     public function Index(){
         return view('admin/page/about/institute_code');
     }
@@ -19,25 +22,18 @@ class instituteCodeController extends Controller
         'institiuteLoge' => 'required|mimes:png,jpg,jpeg,webp',
         'instituteName' => 'required',
         'instituteCode' => 'required',
-        'webLink' => 'url|nullable ',
+        'webLink' => 'nullable ',
+        'instituteType' => 'required',
        ]);
 
-        // get image orginal image extension 
-       $extension = $request->institiuteLoge->getClientOriginalExtension();
-
-        //make uniq file name 
-       $fileName = time() . '_' . uniqid() . '.' . $extension;
-
-        //image save path 
-       $path = 'public/instituteCode';
-
-        //save image into the path
-       $request->institiuteLoge->storeAs($path , $fileName);
+        $path = $this->uploadImage($request, 'institiuteLoge', 'instituteCode');
+        $relativePath = str_replace(public_path(), '', $path);
 
         //insert data into database
-        $data['ins_logo'] = $fileName;
+        $data['ins_logo'] = $relativePath;
         $data['ins_name'] = $request->instituteName;
         $data['ins_code'] = $request->instituteCode;
+        $data['Institute_type_id'] = $request->instituteType;
         $data['web_link'] = $request->webLink;
 
         InstituteCode::create($data);
@@ -46,6 +42,7 @@ class instituteCodeController extends Controller
 
     //edit institute code
     public function Edit($id){
+
         $id = decrypt($id);
         $data = InstituteCode::FindOrFail($id);
         return view('admin/page/about/institute_code_edit',compact('data'));
@@ -53,11 +50,13 @@ class instituteCodeController extends Controller
 
     // update institute code 
     public function Update(Request $request, $id){
+        
         $request->validate([
             'institiuteLoge' => 'mimes:png,jpg,jpeg,webp',
             'instituteName' => 'required',
             'instituteCode' => 'required',
-            'webLink' => 'url|nullable ',
+            'webLink' => 'nullable ',
+            'instituteType' => 'required',
         ]);
         $id = decrypt($id);
 
@@ -69,33 +68,30 @@ class instituteCodeController extends Controller
 
         //update new image and delete old image from storage
         if($request->hasFile('institiuteLoge')){
-            // get file extension 
-            $extension = $request->file('institiuteLoge')->getClientOriginalExtension();
-
-            //create uniq image name
-            $fileName = time().'-'. uniqid(). '.'.$extension;
-
-            //storage path
-            $path = 'public/instituteCode';
-            //store new image
-            $request->file('institiuteLoge')->storeAs($path,$fileName);
+            $path = $this->uploadImage($request, 'institiuteLoge', 'instituteCode');
+            $relativePath = str_replace(public_path(), '', $path);
 
             // delete old image 
             if ($data->ins_logo) {
-                Storage::delete('public/instituteCode/' . $data->ins_logo);
+                unlink($data->ins_logo);
             }
 
-            $data->ins_logo = $fileName ;
+            $data->ins_logo =  $relativePath ;
         }
         
         // update another data 
         $data->ins_name = $request->instituteName;
         $data->ins_code = $request->instituteCode;
+        $data->Institute_type_id = $request->instituteType;
         $data->web_link = $request->webLink;
-
         $data->save();
 
-        return redirect('/institute/code')->with('success','Changes have been successfully saved');
+        // save update record 
+        $activites['name'] = 'Institute code section';
+        $activites['date_time'] = $data->updated_at;
+        Activities::create($activites);
+
+        return redirect()->route('institute-code')->with('success','Changes have been successfully saved');
     }
     
     //delete institute 

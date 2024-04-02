@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Activities;
 use App\Models\AdminCouncil;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use App\Traits\ImageUploadTrait;
 
 class AdminCouncilController extends Controller
 {
+    use ImageUploadTrait;
     public function index(){
         $datas = AdminCouncil::all();
         return view('admin/page/administration/adminCouncil',compact('datas'));
@@ -21,18 +24,11 @@ class AdminCouncilController extends Controller
             'image'=> 'required|mimes:png,jpg,jpeg,webp'
         ]);
         
-        // get file extension 
-        $extension = $request->file('image')->getClientOriginalExtension();
-
-        //create uniq image name
-        $fileName = uniqid(). '.'.$extension;
-        //storage path
-        $path = 'public/adminCouncil';
-        //store new image
-        $request->file('image')->storeAs($path,$fileName);
+        $path = $this->uploadImage($request, 'image', 'admin_council');
+        $relativePath = str_replace(public_path(), '', $path); 
        
        $data=[
-           'img' => $fileName,
+           'img' => $relativePath,
            'name' => $request->name,
            'post' => $request->post,
            'email' => $request->email,
@@ -59,23 +55,15 @@ class AdminCouncilController extends Controller
 
         if($request->hasFile('image')){
             
-            // get file extension 
-            $extension = $request->file('image')->getClientOriginalExtension();
-            
-            //create uniq image name
-            $fileName = time().'-'. uniqid(). '.'.$extension;
-
-            //storage path
-            $path = 'public/adminCouncil';
-            //store new image
-            $request->file('image')->storeAs($path,$fileName);
+            $path = $this->uploadImage($request, 'image', 'home_banner');
+            $relativePath = str_replace(public_path(), '', $path);
 
             // delete old image 
             if ($data->img) {
-                Storage::delete('public/adminCouncil/' . $data->img);
+                unlink($data->img);
             }
 
-            $data->img = $fileName ;
+            $data->img = $relativePath ;
         }
         $data->name = $request->name;
         $data->post = $request->post;
@@ -83,11 +71,18 @@ class AdminCouncilController extends Controller
 
         $data->save();
 
-        return redirect('/admincouncil')->with('success','The member has been successfully changed');
+        // save update record 
+        $activites['name'] = 'Admin council section';
+        $activites['date_time'] = $data->updated_at;
+        Activities::create($activites);
+        
+
+        return redirect()->route('admincouncil')->with('success','The member has been successfully changed');
     }
 
     public function destroy($id){
         $data= AdminCouncil::FindOrFail($id);
+        unlink($data->img);
         $data->delete();
         return back()->with('success','The member has been successfully deleted');
     }

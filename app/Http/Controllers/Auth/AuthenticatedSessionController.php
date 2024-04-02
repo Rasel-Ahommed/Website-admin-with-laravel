@@ -29,8 +29,8 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(RouteServiceProvider::HOME);
-        // return redirect()-> view('admin/dashboard/index');
+        // return redirect()->intended(RouteServiceProvider::HOME);
+        return redirect()->route('dashboard');
     }
 
     /**
@@ -44,6 +44,6 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/login');
+        return redirect('shmu/login');
     }
 }

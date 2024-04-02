@@ -23,7 +23,7 @@
                 <div class="text-section">
                     <div class="text-content">
                         <div class="text-img" id="hero6">
-                            <img class="img-group" src="{{asset('storage/deanImg/'.$data->img)}}" id="heroimg"/>
+                            <img class="img-group" src="{{$data->img}}" id="heroimg"/>
                             <input type="file" accept="image/*" name="image" class="filehero inpbox" onchange="loadFile(this)"/>
                         </div>
                         @error('image')

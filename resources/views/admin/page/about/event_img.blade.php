@@ -44,7 +44,7 @@
             </form>
         </div>
     </div>
-
+   <img src="sitedata/event_image/1712034942_user.jpg" alt="">
     <div class="section shadow">
 
         <h1>Events Images</h1>
@@ -54,8 +54,7 @@
                 @foreach ($data as $d)
                     <div class="img-group text-center" id="hero1" style="width: 12rem;position: relative;">
 
-                        <img style="width: 100%;position: relative;"
-                            src="{{ asset('storage/eventImage/' . $d->e_img) }}" alt="img">
+                        <img style="width: 100%;position: relative;" src="{{$d->e_img}}" alt="img">
                         <a style="position: absolute;top: -5px;right: -20px;" onclick="return confirm('You want to delete this image?')"
                             href="{{route('delete.eventImg',['id'=>$d->id])}}"><i class="bi bi-x-circle-fill text-danger"></i></a>
                     </div>

@@ -6,9 +6,11 @@ use App\Models\Chancellor;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
+use App\Traits\ImageUploadTrait;
 
 class chancellorController extends Controller
 {
+    use ImageUploadTrait;
     public function Index(){
         $data = Chancellor::first();
         return view('admin/page/administration/chancellor',compact('data'));
@@ -35,24 +37,15 @@ class chancellorController extends Controller
 
         //update new image and delete old image from storage
         if($request->hasFile('image')){
-            // get file extension 
-            $extension = $request->file('image')->getClientOriginalExtension();
-
-            //create uniq image name
-            $fileName = uniqid(). '.'.$extension;
-
-            //storage path
-            $path = 'public/chancellorImg';
-            //store new image
-            $request->file('image')->storeAs($path,$fileName);
+            $path = $this->uploadImage($request, 'image', 'home_banner');
+            $relativePath = str_replace(public_path(), '', $path);
 
             // delete old image 
             if ($data->chan_img) {
-                Storage::delete('public/chancellorImg/'. $data->chan_img);
-            
+               unlink($data->chan_img);
             }
 
-            $data->chan_img = $fileName ;
+            $data->chan_img = $relativePath ;
         }
         $data->chan_name = $request-> name;
         $data->chan_about = $request-> aboutChancellor;

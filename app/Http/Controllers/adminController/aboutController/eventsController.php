@@ -2,15 +2,18 @@
 
 namespace App\Http\Controllers\adminController\aboutController;
 
+use App\Models\Activities;
 use App\Models\EventImage;
 use Illuminate\Http\Request;
 use App\Models\NewsAndEvents;
 use Illuminate\Support\Carbon;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
+use App\Traits\ImageUploadTrait;
 
 class eventsController extends Controller
 {
+    use ImageUploadTrait;
     public function Index()
     {
         return view('admin/page/about/events');
@@ -79,7 +82,12 @@ class eventsController extends Controller
         $data->e_time = $request->end_time;
 
         $data->save();
-        return redirect('/events')->with('success', 'Changes have been successfully saved');
+
+        // save update record 
+        $activites['name'] = 'Event Controller section';
+        $activites['date_time'] = $data->updated_at;
+        Activities::create($activites);
+        return redirect()->route('event')->with('success', 'Changes have been successfully saved');
     }
 
     // delete event
@@ -98,50 +106,49 @@ class eventsController extends Controller
             }
 
             $data->delete();
-            return redirect()->back()->with('success','The event has been successfully deleted');
-        }
-        else {
+            return redirect()->back()->with('success', 'The event has been successfully deleted');
+        } else {
             // Handle the case where the notice record does not exist
             return redirect()->back()->with('error', 'Event not found.');
         }
     }
 
     // view event image page
-    public function EventImgIndex($id){
-        $id = decrypt($id);
+    public function EventImgIndex($id)
+    {
+        // $id = decrypt($id);
         $data = EventImage::where('event_id', $id)->get();
 
-        return view("admin/page/about/event_img",compact('id','data'));
+        return view("admin/page/about/event_img", compact('id', 'data'));
     }
 
     // store event img 
-    public function StoreEventImg(Request $request, $id){
+    public function StoreEventImg(Request $request, $id)
+    {
+        $id = decrypt($id);
         $request->validate([
-            
             'eventImg.*' => 'required|mimes:png,jpg,jpeg,webp',
-        ], [
-            'eventImg.*.required' => 'Please upload an image.',
-            'eventImg.*.mimes' => 'Only PNG, JPG, JPEG, and WEBP images are allowed.',
         ]);
-        $id= decrypt($id);
+
         $event = NewsAndEvents::FindorFail($id);
 
         $imageData = [];
 
-        if($files = $request->file('eventImg')){
+        if ($files = $request->file('eventImg')) {
+
             foreach ($files as $key => $file) {
-                // make uniq file name 
-                $extension = $file->getClientOriginalExtension();
-                $fileName = time() . '_' . $key . '_' . uniqid() . '.' . $extension;
 
-                $path = 'public/eventImage';
+                // Generate a unique file name
+                $fileName = time() . '_' . 'user' . '.' . $file->getClientOriginalExtension();
 
-                $file->storeAs($path , $fileName);
+                // Move the file to the custom folder
+                $path = $file->move("sitedata/event_image", $fileName);
+                $relativePath = str_replace(public_path(), '', $path);
 
                 // store data in array 
                 $imageData[]=[
                     'event_id' => $event->id,
-                    'e_img' => $fileName,
+                    'e_img' => $relativePath,
                 ];
             }
         }
@@ -149,14 +156,18 @@ class eventsController extends Controller
         return redirect()->back()->with('success','The images has been successfully added');
     }
 
-    public function DeleteEventImg($id){
+    public function DeleteEventImg($id)
+    {
         $data = EventImage::FindOrFail($id);
 
         if ($data) {
             // Delete the associated file from storage
-            Storage::delete('public/eventImage/' . $data->e_img);
-            $data->delete();
-            return redirect()->back()->with('delete','The image has been successfully deleted');
+            if( $data->e_img && file_exists($data->e_img)){
+                unlink($data->e_img);
+            }
+             $data->delete();
+            return redirect()->back()->with('delete', 'The image has been successfully deleted');
+           
         }
     }
 }

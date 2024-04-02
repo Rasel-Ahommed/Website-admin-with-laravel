@@ -34,7 +34,7 @@
                 <div class="col-4">
                   <figure class="snip1178">
                     <img
-                      src="{{asset('storage/deanImg/'.$data->img)}}"
+                      src="{{$data->img}}"
                       alt="sample53"
                     />
                   </figure>

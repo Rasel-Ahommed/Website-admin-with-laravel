@@ -13,6 +13,7 @@ class InstituteCode extends Model
     protected $fillable = [
         'ins_logo',
         'ins_name',
+        'Institute_type_id',
         'ins_code',
         'web_link',
     ];

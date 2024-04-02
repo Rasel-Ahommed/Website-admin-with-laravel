@@ -77,12 +77,12 @@
         <table class="table table-striped">
             <thead>
                 <tr class="table-primary ">
-                    <th scope="col">#</th>
-                    <th scope="col">Notice-Text</th>
-                    <th scope="col">Options</th>
-                    <th scope="col">Files</th>
-                    <th scope="col">Created At</th>
-                    <th scope="col">Action</th>
+                    <th scope="col" class="text-nowrap">#</th>
+                    <th scope="col" class="text-nowrap">Notice-Text</th>
+                    <th scope="col" class="text-nowrap">Options</th>
+                    <th scope="col" class="text-nowrap">Files</th>
+                    <th scope="col" class="text-nowrap">Created At</th>
+                    <th scope="col" class="text-nowrap">Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -93,7 +93,7 @@
                     <tr>
                         <th scope="row">{{ ($notices->currentPage() - 1) * $notices->perPage() + $key + 1 }}</th>
                         <td>{!! $notice->notice_text !!}</td>
-                        <td>{{ $notice->notice_file }}</td>
+                        <td><a href="{{ $notice->notice_file }}" target="_blank">view</a></td>
                         <td>{{ $notice->is_academic }}</td>
                         <td>{{ $formattedCreatedAt }}</td>
                         <td>

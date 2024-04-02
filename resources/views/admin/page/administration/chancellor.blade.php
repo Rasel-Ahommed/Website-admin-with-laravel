@@ -23,7 +23,7 @@
 
                         <label for="">Chancellor Image : </label>
                         <div class="text-img" id="hero6">
-                            <img class="img-group" src="{{asset('storage/chancellorImg/'.$data->chan_img)}}" id="heroimg"/>
+                            <img class="img-group" src="{{$data->chan_img}}" id="heroimg"/>
                             <input type="file" accept="image/*" name="image" class="filehero inpbox" onchange="loadFile(this)"/>
                         </div>
                         @error('image')

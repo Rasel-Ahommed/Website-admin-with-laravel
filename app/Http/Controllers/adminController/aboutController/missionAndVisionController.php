@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers\adminController\aboutController;
 
+use App\Models\Activities;
 use Illuminate\Http\Request;
 use App\Models\MissionVision;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
+use App\Traits\ImageUploadTrait;
 
 class missionAndVisionController extends Controller
 {
+    use ImageUploadTrait;
     public function Index(){
         $data = MissionVision::get();
         return view('admin/page/about/missionAndvision',compact('data'));
@@ -27,23 +30,15 @@ class missionAndVisionController extends Controller
 
         // check image set or not 
         if($request->hasFile('image')){
-            // get file extension 
-            $extension = $request->file('image')->getClientOriginalExtension();
-
-            //create uniq image name
-            $fileName = time().'-'. uniqid(). '.'.$extension;
-
-            //storage path
-            $path = 'public/mission_visionImg';
-            //store new image
-            $request->file('image')->storeAs($path,$fileName);
+            $path = $this->uploadImage($request, 'image', 'mission_vision');
+            $relativePath = str_replace(public_path(), '', $path);
 
             // delete old image 
             if ($data->mv_img) {
-                Storage::delete('public/mission_visionImg/' . $data->mv_img);
+                unlink($data->mv_img);
             }
 
-            $data->mv_img = $fileName ;
+            $data->mv_img = $relativePath ;
         }
         // remove html tag from paragraph 
         // $paragraph = strip_tags($request->paragraph);
@@ -52,6 +47,11 @@ class missionAndVisionController extends Controller
         $data->mv_text = $request->text;
 
         $data->save();
+
+        // save update record 
+        $activites['name'] = 'Mission and vision section';
+        $activites['date_time'] = $data->updated_at;
+        Activities::create($activites);
         return redirect()->back()->with('success',"The campus details has been successfully changed");
     }
 
@@ -69,23 +69,15 @@ class missionAndVisionController extends Controller
 
         // check image set or not 
         if($request->hasFile('image')){
-            // get file extension 
-            $extension = $request->file('image')->getClientOriginalExtension();
-
-            //create uniq image name
-            $fileName = time().'-'. uniqid(). '.'.$extension;
-
-            //storage path
-            $path = 'public/mission_visionImg';
-            //store new image
-            $request->file('image')->storeAs($path,$fileName);
+            $path = $this->uploadImage($request, 'image', 'mission_vision');
+            $relativePath = str_replace(public_path(), '', $path);
 
             // delete old image 
             if ($data->mv_img) {
-                Storage::delete('public/mission_visionImg/' . $data->mv_img);
+                unlink($data->mv_img);
             }
 
-            $data->mv_img = $fileName ;
+            $data->mv_img = $relativePath ;
         }
         // remove html tag from paragraph 
         // $paragraph = strip_tags($request->paragraph);

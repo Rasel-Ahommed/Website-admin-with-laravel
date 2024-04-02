@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\vcOfficeMember;
+use App\Models\Activities;
 use Illuminate\Http\Request;
+use App\Models\vcOfficeMember;
 use App\Models\viceChancellor;
 use Illuminate\Support\Facades\Storage;
+use App\Traits\ImageUploadTrait;
 
 class ViceChancellorController extends Controller
 {
+    use ImageUploadTrait;
     public function index(){
         $data = viceChancellor::first();
         $members = vcOfficeMember::paginate(10);
@@ -31,6 +34,7 @@ class ViceChancellorController extends Controller
             'emali' => 'required',
             'phone' => 'required',
             'aboutChancellor' => 'required',
+            'message' => 'required',
         ]);
         $data = viceChancellor::FindOrFail($id);
         
@@ -40,24 +44,15 @@ class ViceChancellorController extends Controller
 
         //update new image and delete old image from storage
         if($request->hasFile('image')){
-            // get file extension 
-            $extension = $request->file('image')->getClientOriginalExtension();
-
-            //create uniq image name
-            $fileName = uniqid(). '.'.$extension;
-            
-            //storage path
-            $path = 'public/chancellorImg';
-
-            //store new image
-            $request->file('image')->storeAs($path,$fileName);
+            $path = $this->uploadImage($request, 'image', 'home_banner');
+            $relativePath = str_replace(public_path(), '', $path);
 
             // delete old image 
             if ($data->img) {
-                Storage::delete('public/chancellorImg/'.$data->img);
+                unlink($data->img);
             }
             
-            $data->img = $fileName ;
+            $data->img = $relativePath ;
         }
         $data->name = $request-> name;
         $data->degree = $request-> Degree;
@@ -69,8 +64,15 @@ class ViceChancellorController extends Controller
         $data->facebook = $request->fbLink;
         $data->linkedIn = $request-> linkedLink;
         $data->about = $request-> aboutChancellor;
+        $data->message = $request-> message;
 
         $data->save();
+
+        // save update record 
+        $activites['name'] = 'Vice Chancellor section';
+        $activites['date_time'] = $data->updated_at;
+        Activities::create($activites);
+        
         return redirect()->back()->with('success','The Vice Chancellor info has been successfuly Changed');
     }
 }

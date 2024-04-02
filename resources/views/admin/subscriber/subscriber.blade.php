@@ -1,4 +1,3 @@
-
 @include('admin/header')
 
 <section class="subscriber">
@@ -10,10 +9,11 @@
             <canvas id="myLineChart"></canvas>
         </div>
     </div>
+
     <div class="subscriber-table shadow">
         <div class="mail-copy-btn">
             <h1>All Subscriber List</h1>
-            <button>Copy mail</button>
+            {{-- <button>Copy mail</button> --}}
         </div>
         <div class="subscriber-list">
             <table>
@@ -25,35 +25,28 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>ridoysheikh15@gmail.com</td>
-                        <td>Jan 17, 2024</td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>ridoysheikh15@gmail.com</td>
-                        <td>Jan 17, 2024</td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>ridoysheikh15@gmail.com</td>
-                        <td>Jan 17, 2024</td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>ridoysheikh15@gmail.com</td>
-                        <td>Jan 17, 2024</td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>ridoysheikh15@gmail.com</td>
-                        <td>Jan 17, 2024</td>
-                    </tr>
+                    @php
+                        use Carbon\Carbon;
+                    @endphp
+                    @foreach ($datas as $key => $data)
+                        <tr>
+
+                            @php
+                                $formattedCreatedAt = Carbon::parse($data->created_at)->format('Y-M-d');
+                            @endphp
+                            <td>{{ ($datas->currentPage() - 1) * $datas->perPage() + $key + 1 }}</td>
+                            <td>{{ $data->email }}</td>
+                            <td>{{ $formattedCreatedAt }}</td>
+
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
+            {{$datas->links()}}
         </div>
     </div>
 </section>
+
+
 
 @include('admin/footer')

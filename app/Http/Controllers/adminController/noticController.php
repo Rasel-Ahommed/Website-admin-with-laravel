@@ -3,13 +3,16 @@
 namespace App\Http\Controllers\adminController;
 
 use App\Models\Notice;
+use App\Models\Activities;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
+use App\Traits\ImageUploadTrait;
 
 
 class noticController extends Controller
 {
+    use ImageUploadTrait;
     // view notice page 
     public function Index(){
         return view('admin/page/notice');
@@ -19,20 +22,20 @@ class noticController extends Controller
     public function Store(Request $request){
        $request->validate([
             'selectOption' => 'required',
-            'notice_file' => 'required|mimes:pdf,jpeg,png,jpg',
+            // 'notice_file' => 'required|mimes:pdf,jpeg,png,jpg',
             'notice_text' => 'required'
        ]);
 
-    //    reset name and store file 
-       $fileName = time().'notice.'. $request->file('notice_file')->getClientOriginalExtension();
-       $request->file('notice_file')->storeAs('public/Notice',$fileName);
+        $path = $this->uploadImage($request, 'notice_file', 'notice');
+        $relativePath = str_replace(public_path(), '', $path);
+    
        
     //    remove html tag form text 
        $notice_text = strip_tags($request->notice_text);
     //insert data into database
        $data = [
         'notice_text' => $notice_text,
-        'notice_file' => $fileName,
+        'notice_file' => $relativePath,
         'is_academic' => $request->selectOption,
         ];
     
@@ -54,7 +57,7 @@ class noticController extends Controller
         // Validation rules
         $request->validate([
             'selectOption' => 'required',
-            'notice_file' => 'nullable|sometimes|mimes:pdf,jpeg,png,jpg',
+            // 'notice_file' => 'nullable|mimes:pdf,jpeg,png,jpg',
             'notice_text' => 'required'
         ]);
        $id= decrypt($id);
@@ -68,17 +71,16 @@ class noticController extends Controller
     
         // Update the notice_file if a new file is provided
         if ($request->hasFile('notice_file')) {
-            
-            $fileName = time() . 'notice.' . $request->file('notice_file')->getClientOriginalExtension();
 
-            $request->file('notice_file')->storeAs('public/Notice', $fileName);
+            $path = $this->uploadImage($request, 'notice_file', 'notice');
+            $relativePath = str_replace(public_path(), '', $path);
     
             // Delete the old file if it exists
             if ($data->notice_file) {
-                Storage::delete('public/Notice/' . $data->notice_file);
+               unlink($data->notice_file);
             }
     
-            $data->notice_file = $fileName;
+            $data->notice_file = $relativePath;
         }
     
          //    remove html tag form text 
@@ -90,8 +92,13 @@ class noticController extends Controller
     
         // Save the changes to the database
         $data->save();
+
+        // save update record 
+        $activites['name'] = 'Notice section';
+        $activites['date_time'] = $data->updated_at;
+        Activities::create($activites);
         
-        return redirect('/notice')->with('success', "Changes have been successfully saved");
+        return redirect()->route('notice')->with('success', "Changes have been successfully saved");
 
 
         // Redirect or perform any other necessary action after successful update
@@ -107,7 +114,7 @@ class noticController extends Controller
         // Check if the notice record exists
         if ($data) {
             // Delete the associated file from storage
-            Storage::delete('public/Notice/' . $data->notice_file);
+           unlink($data->notice_file);
 
             // Delete the notice record from the database
             $data->delete();

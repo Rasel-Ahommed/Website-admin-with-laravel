@@ -20,7 +20,7 @@
                         <div class="form-group">
                             <label for="exampleInputPassword1">Upload Act</label>
                             <input type="file" name='actDoc' class="form-control" id="exampleInputPassword1"
-                                value="{{ old('actDoc') }}">
+                            accept="application/pdf"    value="{{ old('actDoc') }}">
                         </div>
                         @error('actDoc')
                             <div class=" text-danger">{{ $message }}</div>
@@ -76,7 +76,7 @@
                         <div class="text-name">
                             <label for="text-name">
                                 ACT Title
-                                <input class="input-item" type="text" name="title" id="text-name"
+                                <input class="input-item" type="text" name="title" id="text-name" 
                                     placeholder="Enter Link" value="{{ old('title', $data->act_title) }}" disabled>
                             </label>
                         </div>
@@ -124,17 +124,21 @@
                         <tr>
                             <th scope="row">{{ ($acts->currentPage() - 1) * $acts->perPage() + $key + 1 }}</th>
                             <td>{{ $act->actDoc_heading }}</td>
-                            <td>{{ $act->actDoc_file }}</td>
+                            <td><a href="{{$act->actDoc_file}}" target="_blank">view</a></td>
 
-                            <td class="d-flex">
-                                <a class="ml-1" href="{{ route('act.edit', ['id' => encrypt($act->id)]) }}">
-                                    <button class="btn btn-primary mb-2"><i class="bi bi-pencil-square"></i></button>
-                                </a>
+                            <td>
+                                <div class="d-flex">
+                                    <a  href="{{ route('act.edit', ['id' => encrypt($act->id)]) }}">
+                                        <button class="btn btn-primary mx-2"><i class="bi bi-pencil-square"></i></button>
+                                    </a>
+                                
+                             
 
                                 <a onclick="return confirm('Are you sure to delete this notice')"
                                     href="{{ route('act.delete', ['id' => encrypt($act->id)]) }}">
                                     <button class="btn btn-danger"><i class="bi bi-trash-fill"></i></button>
                                 </a>
+                            </div>
                             </td>
                         </tr>
                     @endforeach

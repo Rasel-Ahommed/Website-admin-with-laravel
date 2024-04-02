@@ -25,31 +25,7 @@
             <!--=====================================-->
             <my-nav></my-nav>
             <!--=====================================-->
-            <!-- <div class="edu-breadcrumb-area">
-                    <div class="container">
-                        <div class="breadcrumb-inner">
-                            <div class="page-title">
-                                <h1 class="title">Event</h1>
-                            </div>
-                            <ul class="edu-breadcrumb">
-                                <li class="breadcrumb-item"><a href="index-one.html">Home</a></li>
-                                <li class="separator"><i class="icon-angle-right"></i></li>
-                                <li class="breadcrumb-item">Notice</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <ul class="shape-group">
-                        <li class="shape-1">
-                            <span></span>
-                        </li>
-                        <li class="shape-2 scene"><img data-depth="2" src="assets/images/about/shape-13.png" alt="shape"></li>
-                        <li class="shape-3 scene"><img data-depth="-2" src="assets/images/about/shape-15.png" alt="shape"></li>
-                        <li class="shape-4">
-                            <span></span>
-                        </li>
-                        <li class="shape-5 scene"><img data-depth="2" src="assets/images/about/shape-07.png" alt="shape"></li>
-                    </ul>
-                </div> -->
+            
             <!-- Start Event Area  -->
 
             @php
@@ -85,10 +61,10 @@
                                 <div class="edu-event event-style-1">
                                     <div class="inner">
                                         <div class="thumbnail">
-                                            <a href="/event/deatils/{{$event->id}}">
+                                            {{-- <a href="{{route('event.deatils')}}"> --}}
                                                 @php
                                                     if ($img) {
-                                                        $imgSrc = asset('storage/eventImage/' . $img->e_img);
+                                                        $imgSrc =$img->e_img;
                                                         
                                                         // Display the image
                                                         echo "<img src=\"$imgSrc\" alt=\"Blog Images\">";
@@ -116,7 +92,7 @@
                                                 <li><i class="icon-40"></i>{{$event->location}}</a></li>
                                             </ul>
                                             <div class="read-more-btn">
-                                                <a class="edu-btn btn-small btn-secondary" href="/event/deatils/{{$event->id}}">Learn More <i
+                                                <a class="edu-btn btn-small btn-secondary" href="event-deatils/{{$event->id}}">Learn More <i
                                                         class="icon-4"></i></a>
                                             </div>
                                         </div>
@@ -129,13 +105,10 @@
                     <!-- Start Event Grid  -->
                     
 
-                    {{-- <div class="event-view-all-btn" data-sal-delay="150" data-sal="slide-up" data-sal-duration="1200">
-                    <h6 class="view-text">The Latest Events from SHMU. <a href="#" class="btn-transparent">See More<i class="icon-4"></i></a></h6>
-                </div> --}}
 
                     <ul class="shape-group">
                         <li class="shape-1" data-sal-delay="500" data-sal="fade" data-sal-duration="200">
-                            <img class="rotateit" src="/assets/images/about/shape-13.png" alt="Shape">
+                            <img class="rotateit" src="assets/images/about/shape-13.png" alt="Shape">
                         </li>
                         <li class="shape-2 scene" data-sal-delay="500" data-sal="fade" data-sal-duration="200">
                             <span data-depth=".9"></span>
